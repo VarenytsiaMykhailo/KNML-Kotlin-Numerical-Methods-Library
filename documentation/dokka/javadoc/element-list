@@ -1,0 +1,11 @@
+$dokka.format:javadoc-v1
+$dokka.linkExtension:html
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Profiler.Timeable///PointingToDeclaration/com/github/varenytsiamykhailo/knml/util/Profiler.Timeable.html
+com.github.varenytsiamykhailo.knml
+com.github.varenytsiamykhailo.knml.integralmethods
+com.github.varenytsiamykhailo.knml.integralmethods.solutions
+com.github.varenytsiamykhailo.knml.systemsolvingmethods
+com.github.varenytsiamykhailo.knml.systemsolvingmethods.solutions
+com.github.varenytsiamykhailo.knml.util
+com.github.varenytsiamykhailo.knml.util.results
+

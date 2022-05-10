@@ -1,0 +1,49 @@
+$dokka.format:gfm-v1
+$dokka.linkExtension:md
+$dokka.location:com.github.varenytsiamykhailo.knml.integralmethods////PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.integralmethods/index.md
+$dokka.location:com.github.varenytsiamykhailo.knml.integralmethods/RectangleMethod///PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.integralmethods/-rectangle-method/index.md
+$dokka.location:com.github.varenytsiamykhailo.knml.integralmethods/RectangleMethod/RectangleMethod/#/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.integralmethods/-rectangle-method/-rectangle-method.md
+$dokka.location:com.github.varenytsiamykhailo.knml.integralmethods/SimpsonMethod///PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.integralmethods/-simpson-method/index.md
+$dokka.location:com.github.varenytsiamykhailo.knml.integralmethods/SimpsonMethod/SimpsonMethod/#/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.integralmethods/-simpson-method/-simpson-method.md
+$dokka.location:com.github.varenytsiamykhailo.knml.integralmethods/TrapezoidMethod///PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.integralmethods/-trapezoid-method/index.md
+$dokka.location:com.github.varenytsiamykhailo.knml.integralmethods/TrapezoidMethod/TrapezoidMethod/#/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.integralmethods/-trapezoid-method/-trapezoid-method.md
+$dokka.location:com.github.varenytsiamykhailo.knml.systemsolvingmethods////PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.systemsolvingmethods/index.md
+$dokka.location:com.github.varenytsiamykhailo.knml.systemsolvingmethods/GaussMethod///PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.systemsolvingmethods/-gauss-method/index.md
+$dokka.location:com.github.varenytsiamykhailo.knml.systemsolvingmethods/GaussMethod/GaussMethod/#/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.systemsolvingmethods/-gauss-method/-gauss-method.md
+$dokka.location:com.github.varenytsiamykhailo.knml.systemsolvingmethods/ThomasMethod///PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.systemsolvingmethods/-thomas-method/index.md
+$dokka.location:com.github.varenytsiamykhailo.knml.systemsolvingmethods/ThomasMethod/ThomasMethod/#/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.systemsolvingmethods/-thomas-method/-thomas-method.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util////PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/index.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util//matrixMultiplicateMatrix/#com.github.varenytsiamykhailo.knml.util.Matrix#com.github.varenytsiamykhailo.knml.util.Matrix/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/matrix-multiplicate-matrix.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util//matrixMultiplicateVector/#com.github.varenytsiamykhailo.knml.util.Matrix#com.github.varenytsiamykhailo.knml.util.Vector/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/matrix-multiplicate-vector.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util//scalarProduct/#com.github.varenytsiamykhailo.knml.util.Vector#com.github.varenytsiamykhailo.knml.util.Vector/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/scalar-product.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util//transposeMatrix/#com.github.varenytsiamykhailo.knml.util.Matrix/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/transpose-matrix.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Matrix///PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/-matrix/index.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Matrix/Matrix/#kotlin.Array[kotlin.Array[kotlin.Double]]/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/-matrix/-matrix.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Matrix/Matrix/#kotlin.Int#kotlin.Int/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/-matrix/-matrix.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Matrix/equals/#kotlin.Any?/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/-matrix/equals.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Matrix/getElem/#kotlin.Int#kotlin.Int/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/-matrix/get-elem.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Matrix/getElems/#/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/-matrix/get-elems.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Matrix/getM/#/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/-matrix/get-m.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Matrix/getN/#/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/-matrix/get-n.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Matrix/hashCode/#/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/-matrix/hash-code.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Matrix/setElem/#kotlin.Int#kotlin.Int#kotlin.Double/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/-matrix/set-elem.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Matrix/setElems/#kotlin.Array[kotlin.Array[kotlin.Double]]/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/-matrix/set-elems.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Matrix/toString/#/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/-matrix/to-string.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Vector///PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/-vector/index.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Vector/Vector/#kotlin.Array[kotlin.Double]/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/-vector/-vector.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Vector/Vector/#kotlin.Int/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/-vector/-vector.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Vector/equals/#kotlin.Any?/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/-vector/equals.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Vector/getElem/#kotlin.Int/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/-vector/get-elem.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Vector/getElems/#/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/-vector/get-elems.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Vector/getN/#/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/-vector/get-n.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Vector/hashCode/#/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/-vector/hash-code.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Vector/setElem/#kotlin.Int#kotlin.Double/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/-vector/set-elem.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Vector/setElems/#kotlin.Array[kotlin.Double]/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/-vector/set-elems.md
+$dokka.location:com.github.varenytsiamykhailo.knml.util/Vector/toString/#/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml.util/-vector/to-string.md
+$dokka.location:com.github.varenytsiamykhailo.knml////PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml/index.md
+$dokka.location:com.github.varenytsiamykhailo.knml//main/#/PointingToDeclaration/knml/com.github.varenytsiamykhailo.knml/main.md
+com.github.varenytsiamykhailo.knml
+com.github.varenytsiamykhailo.knml.integralmethods
+com.github.varenytsiamykhailo.knml.systemsolvingmethods
+com.github.varenytsiamykhailo.knml.util
+
