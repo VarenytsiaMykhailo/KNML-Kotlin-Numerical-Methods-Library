@@ -3,11 +3,15 @@ package com.github.varenytsiamykhailo.knml.util;
 import com.github.varenytsiamykhailo.knml.integralmethods.RectangleMethod;
 import com.github.varenytsiamykhailo.knml.integralmethods.SimpsonMethod;
 import com.github.varenytsiamykhailo.knml.integralmethods.TrapezoidMethod;
+import com.github.varenytsiamykhailo.knml.optimizationmethods.FibonacciMethod;
+import com.github.varenytsiamykhailo.knml.optimizationmethods.GoldenSectionMethod;
+import com.github.varenytsiamykhailo.knml.optimizationmethods.SvennMethod;
 import com.github.varenytsiamykhailo.knml.systemsolvingmethods.GaussMethod;
 import com.github.varenytsiamykhailo.knml.systemsolvingmethods.JacobiMethod;
 import com.github.varenytsiamykhailo.knml.systemsolvingmethods.SeidelMethod;
 import com.github.varenytsiamykhailo.knml.systemsolvingmethods.ThomasMethod;
 import com.github.varenytsiamykhailo.knml.util.results.DoubleResultWithStatus;
+import com.github.varenytsiamykhailo.knml.util.results.IntervalResultWithStatus;
 import com.github.varenytsiamykhailo.knml.util.results.VectorResultWithStatus;
 import org.jfree.data.xy.XYSeries;
 
@@ -20,11 +24,14 @@ public class ProfileMethods {
     public static void main(String[] args) {
         //profileJacobiMethod();
         //profileThomasMethod();
-        profileGaussMethod();
+        //profileGaussMethod();
         //profileSeidelMethod();
         //profileRectangleMethod();
         //profileTrapezoidMethod();
         //profileSimpsonMethod();
+        //profileSvennMethod();
+        //profileFibonacciMethod();
+        profileGoldenSectionMethod();
         //profileArrayListAddBeginning();
         //profileLinkedListAddBeginning();
         //profileLinkedListAddEnd();
@@ -411,6 +418,108 @@ public class ProfileMethods {
         runProfiler("Simpson method profile", timeable, startN, endMillis);
     }
 
+
+    public static void profileSvennMethod() {
+        Timeable timeable = new Timeable() {
+            SvennMethod svennMethod;
+
+            Double intervalStart = -2.0;
+
+            public void setup(int n) {
+                svennMethod = new SvennMethod();
+
+                intervalStart = (double) n;
+
+                System.out.println("formed intervalStart = " + intervalStart);
+            }
+
+            public void timeMe(int n) {
+                IntervalResultWithStatus intervalResultWithStatus = svennMethod.findIntervalBySvennMin(intervalStart, 000.1, false, x ->
+                        (x - 1) * (x - 1) +
+                                Math.abs(x + 5) * Math.abs(x + 5));
+                if (!intervalResultWithStatus.isSuccessful()) {
+                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.out.println(intervalResultWithStatus.getErrorException());
+                } else {
+                    System.out.println(intervalResultWithStatus.getIntervalResult());
+                }
+            }
+        };
+        int startN = 2;
+        int endMillis = 1000;
+
+        runProfiler("Svenn method profile", timeable, startN, endMillis);
+    }
+
+
+    public static void profileFibonacciMethod() {
+        Timeable timeable = new Timeable() {
+            FibonacciMethod fibonacciMethod;
+
+            Double intervalStart = 0.0;
+            Double intervalEnd;
+
+            public void setup(int n) {
+                fibonacciMethod = new FibonacciMethod();
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+
+            }
+
+            public void timeMe(int n) {
+                DoubleResultWithStatus doubleResultWithStatus = fibonacciMethod.findExtremaByFibonacciMethod(intervalStart, intervalEnd, 0.0001, false, x ->
+                        (x - 1) * (x - 1) +
+                                Math.abs(x + 5) * Math.abs(x + 5));
+                if (!doubleResultWithStatus.isSuccessful()) {
+                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.out.println(doubleResultWithStatus.getErrorException());
+                } else {
+                    System.out.println(doubleResultWithStatus.getDoubleResult());
+                }
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Fibonacci method profile", timeable, startN, endMillis);
+    }
+
+
+    public static void profileGoldenSectionMethod() {
+        Timeable timeable = new Timeable() {
+            GoldenSectionMethod goldenSectionMethod;
+
+            Double intervalStart = 0.0;
+            Double intervalEnd;
+
+            public void setup(int n) {
+                goldenSectionMethod = new GoldenSectionMethod();
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+
+            }
+
+            public void timeMe(int n) {
+                DoubleResultWithStatus doubleResultWithStatus = goldenSectionMethod.findExtremaByGoldenSectionMethod(intervalStart, intervalEnd, 0.0001, false, x ->
+                        (x - 1) * (x - 1) +
+                                Math.abs(x + 5) * Math.abs(x + 5));
+                if (!doubleResultWithStatus.isSuccessful()) {
+                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.out.println(doubleResultWithStatus.getErrorException());
+                } else {
+                    System.out.println(doubleResultWithStatus.getDoubleResult());
+                }
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Golden section method profile", timeable, startN, endMillis);
+    }
 
 /*
     public static void profileArrayListAddEnd() {

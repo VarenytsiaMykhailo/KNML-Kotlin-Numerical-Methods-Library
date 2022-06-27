@@ -45,7 +45,7 @@ class TrapezoidMethod {
     fun solveIntegralByTrapezoidMethod(
         intervalStart: Double,
         intervalEnd: Double,
-        eps: Double = getMachineEps(),
+        eps: Double? = null,
         formSolution: Boolean = false,
         integralFunction: (x: Double) -> Double
     ): DoubleResultWithStatus {
@@ -53,7 +53,7 @@ class TrapezoidMethod {
             runSolvingIntegralByTrapezoidMethod(
                 intervalStart,
                 intervalEnd,
-                eps,
+                eps ?: getMachineEps(),
                 formSolution,
                 integralFunction
             )

@@ -16,7 +16,7 @@ import kotlin.math.abs
  * Though it can be applied to any matrix with non-zero elements on the diagonals,
  * convergence is only guaranteed if the matrix is either strictly diagonally dominant, or symmetric and positive definite.
  *
- * Asymptotic complexity: O(n^3)
+ * Asymptotic complexity: O(n^3).
  *
  * Use [solveSystemBySeidelMethod] method to solve the strictly diagonally dominant system of linear equations.
  *
@@ -34,7 +34,7 @@ class SeidelMethod {
      * Though it can be applied to any matrix with non-zero elements on the diagonals,
      * convergence is only guaranteed if the matrix is either strictly diagonally dominant, or symmetric and positive definite.
      *
-     * Asymptotic complexity: O(n^3)
+     * Asymptotic complexity: O(n^3).
      *
      * Use [solveSystemBySeidelMethod] method to solve the strictly diagonally dominant system of linear equations.
      *
@@ -84,7 +84,7 @@ class SeidelMethod {
      * Though it can be applied to any matrix with non-zero elements on the diagonals,
      * convergence is only guaranteed if the matrix is either strictly diagonally dominant, or symmetric and positive definite.
      *
-     * Asymptotic complexity: O(n^3)
+     * Asymptotic complexity: O(n^3).
      *
      * Use [solveSystemBySeidelMethod] method to solve the strictly diagonally dominant system of linear equations.
      *

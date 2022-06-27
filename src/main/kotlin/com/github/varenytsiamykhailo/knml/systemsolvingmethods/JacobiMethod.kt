@@ -14,7 +14,7 @@ import kotlin.math.abs
  * This algorithm is a stripped-down version of the Jacobi transformation method of matrix diagonalization.
  * The method is named after Carl Gustav Jacob Jacobi.
  *
- * Asymptotic complexity: O(n^3)
+ * Asymptotic complexity: O(n^3).
  *
  * Use [solveSystemByJacobiMethod] method to solve the strictly diagonally dominant system of linear equations.
  *
@@ -30,7 +30,7 @@ class JacobiMethod {
      * This algorithm is a stripped-down version of the Jacobi transformation method of matrix diagonalization.
      * The method is named after Carl Gustav Jacob Jacobi.
      *
-     * Asymptotic complexity: O(n^3)
+     * Asymptotic complexity: O(n^3).
      *
      * **See Also:** [https://en.wikipedia.org/wiki/Jacobi_method], [https://ru.wikipedia.org/wiki/Метод_Якоби]
      *
@@ -76,7 +76,7 @@ class JacobiMethod {
      * This algorithm is a stripped-down version of the Jacobi transformation method of matrix diagonalization.
      * The method is named after Carl Gustav Jacob Jacobi.
      *
-     * Asymptotic complexity: O(n^3)
+     * Asymptotic complexity: O(n^3).
      *
      * **See Also:** [https://en.wikipedia.org/wiki/Jacobi_method], [https://ru.wikipedia.org/wiki/Метод_Якоби]
      *

@@ -13,7 +13,7 @@ import com.github.varenytsiamykhailo.knml.util.results.VectorResultWithStatus
  *
  * Tridiagonal matrix is a band matrix that has nonzero elements on the main diagonal, the first diagonal below this, and the first diagonal above the main diagonal only.
  *
- * Asymptotic complexity: O(n) or O(n^2). O(n^2) is default, beacause by default this method implementation does validation of input matrix A, which must be tridiagonal.
+ * Asymptotic complexity: O(n) or O(n^2). O(n^2) is default, because by default this method implementation does validation of input matrix A, which must be tridiagonal.
  * You can get the required original asymptotic complexity O(n) by disabling validation, if you need to increase performance:
  * you can use 'increasePerformanceByIgnoringInputDataChecking' flag by true, and validation will be disabled.
  * But you yourself have to take care of the correctness of the input data.
@@ -33,7 +33,7 @@ class ThomasMethod {
      *
      * Tridiagonal matrix is a band matrix that has nonzero elements on the main diagonal, the first diagonal below this, and the first diagonal above the main diagonal only.
      *
-     * Asymptotic complexity: O(n) or O(n^2). O(n^2) is default, beacause by default this method implementation does validation of input matrix A, which must be tridiagonal.
+     * Asymptotic complexity: O(n) or O(n^2). O(n^2) is default, because by default this method implementation does validation of input matrix A, which must be tridiagonal.
      * You can get the required original asymptotic complexity O(n) by disabling validation, if you need to increase performance:
      * you can use 'increasePerformanceByIgnoringInputDataChecking' flag by true, and validation will be disabled.
      * But you yourself have to take care of the correctness of the input data.
@@ -75,7 +75,7 @@ class ThomasMethod {
      *
      * Tridiagonal matrix is a band matrix that has nonzero elements on the main diagonal, the first diagonal below this, and the first diagonal above the main diagonal only.
      *
-     * Asymptotic complexity: O(n) or O(n^2). O(n^2) is default, beacause by default this method implementation does validation of input matrix A, which must be tridiagonal.
+     * Asymptotic complexity: O(n) or O(n^2). O(n^2) is default, because by default this method implementation does validation of input matrix A, which must be tridiagonal.
      * You can get the required original asymptotic complexity O(n) by disabling validation, if you need to increase performance:
      * you can use 'increasePerformanceByIgnoringInputDataChecking' flag by true, and validation will be disabled.
      * But you yourself have to take care of the correctness of the input data.

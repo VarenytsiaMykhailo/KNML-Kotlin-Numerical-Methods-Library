@@ -53,7 +53,7 @@ class RectangleMethod {
     fun solveIntegralByRectangleMethod(
         intervalStart: Double,
         intervalEnd: Double,
-        eps: Double = getMachineEps(),
+        eps: Double? = null,
         formSolution: Boolean = false,
         integralFunction: (x: Double) -> Double
     ): DoubleResultWithStatus {
@@ -61,7 +61,7 @@ class RectangleMethod {
             runSolvingIntegralByRectangleMethod(
                 intervalStart,
                 intervalEnd,
-                eps,
+                eps ?: getMachineEps(),
                 formSolution,
                 integralFunction
             )
