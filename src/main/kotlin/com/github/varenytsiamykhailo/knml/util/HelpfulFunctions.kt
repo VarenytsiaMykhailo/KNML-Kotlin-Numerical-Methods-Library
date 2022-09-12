@@ -1,5 +1,8 @@
 package com.github.varenytsiamykhailo.knml.util
 
+import kotlin.random.Random
+import kotlin.random.nextInt
+
 fun getPretty1DDoubleArrayString(array: Array<Double>): String {
     return "elems=[" + array.joinToString(" \t") + "]"
 }
@@ -22,4 +25,21 @@ fun getMachineEps(): Double {
         eps /= 2.0
     }
     return eps
+}
+
+fun getMatrixWithRandomElementsAndDiagonalDominance(n: Int, a: Int, b: Int, diagonalCoefficient: Int) : Matrix {
+    val max = maxOf(-a, b)
+    val min = minOf(-a, b)
+    val matrix = Matrix(n, n)
+    for (i in 0 until n) {
+        for (j in 0 until n) {
+            val element = (Random.nextInt(max - min) + min).toDouble()
+            matrix.setElem(
+                i,
+                j,
+                if (i == j) element * diagonalCoefficient else element
+            )
+        }
+    }
+    return matrix
 }
