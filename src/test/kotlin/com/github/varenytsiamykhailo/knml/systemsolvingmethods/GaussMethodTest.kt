@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
 import kotlin.math.abs
+import kotlin.math.roundToInt
 
 internal class GaussMethodTest {
 
@@ -320,5 +321,29 @@ internal class GaussMethodTest {
         assert(!result.isSuccessful)
         assert(result.errorException != null)
         assert(result.solutionObject == null)
+    }
+
+    @Test
+    fun test10SolveSystemByGaussClassicMethod() {
+        val A: Matrix = Matrix(
+            arrayOf(
+                arrayOf(2.0, -1.0, 0.0),
+                arrayOf(5.0, 4.0, 2.0),
+                arrayOf(0.0, 1.0, -3.0)
+            )
+        )
+        val X: Vector = Vector(arrayOf(1.488, -0.023, -0.674))
+
+        val resultB: Vector = matrixMultiplicateVector(A, X)
+
+        val resultX: VectorResultWithStatus = GaussMethod().solveSystemByGaussClassicMethod(
+            A,
+            resultB
+        )
+
+        for (i in 0 until resultX.vectorResult!!.getElems().size) {
+            resultX.vectorResult!!.setElem(i, (resultX.vectorResult!!.getElem(i) * 1000).roundToInt() / 1000.0)
+        }
+        assert(X == resultX.vectorResult)
     }
 }
