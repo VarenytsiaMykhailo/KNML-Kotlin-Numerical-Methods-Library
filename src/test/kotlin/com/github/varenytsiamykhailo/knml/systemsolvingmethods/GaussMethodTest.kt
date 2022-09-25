@@ -346,4 +346,51 @@ internal class GaussMethodTest {
         }
         assert(X == resultX.vectorResult)
     }
+
+    @Test
+    fun test11SolveSystemByGaussClassicMethodWithPartialPivoting() {
+        val A: Matrix = Matrix(
+            arrayOf(
+                arrayOf(2.0, -1.0, 0.0),
+                arrayOf(5.0, 4.0, 2.0),
+                arrayOf(0.0, 1.0, -3.0)
+            )
+        )
+        val B: Vector = Vector(arrayOf(3.0, 6.0, 2.0))
+
+        val resultWithPivotingByRow: VectorResultWithStatus = GaussMethod().solveSystemByGaussMethodWithPivoting(
+            A,
+            B,
+            true,
+            GaussMethod.Companion.PivotingStrategy.PartialByRow
+        )
+        assert(resultWithPivotingByRow.arrayResult != null)
+        assert(resultWithPivotingByRow.arrayResult!!.size == 3)
+        assert(resultWithPivotingByRow.arrayResult!![0].toString().startsWith("1.488"))
+        assert(resultWithPivotingByRow.arrayResult!![1].toString().startsWith("-0.0232"))
+        assert(resultWithPivotingByRow.arrayResult!![2].toString().startsWith("-0.674"))
+        assert(resultWithPivotingByRow.vectorResult != null)
+        assert(resultWithPivotingByRow.vectorResult!!.getN() == 3)
+        assert(resultWithPivotingByRow.vectorResult!!.getElem(0).toString().startsWith("1.488"))
+        assert(resultWithPivotingByRow.vectorResult!!.getElem(1).toString().startsWith("-0.0232"))
+        assert(resultWithPivotingByRow.vectorResult!!.getElem(2).toString().startsWith("-0.674"))
+        assert(resultWithPivotingByRow.isSuccessful)
+        assert(resultWithPivotingByRow.errorException == null)
+
+        val resultWithPivotingByColumn: VectorResultWithStatus = GaussMethod().solveSystemByGaussMethodWithPivoting(
+            A,
+            B,
+            true,
+            GaussMethod.Companion.PivotingStrategy.PartialByColumn
+        )
+        assert(resultWithPivotingByRow.arrayResult.contentEquals(resultWithPivotingByColumn.arrayResult))
+
+        val resultWithCompletePivoting: VectorResultWithStatus = GaussMethod().solveSystemByGaussMethodWithPivoting(
+            A,
+            B,
+            true,
+            GaussMethod.Companion.PivotingStrategy.Complete
+        )
+        assert(resultWithPivotingByRow.arrayResult.contentEquals(resultWithCompletePivoting.arrayResult))
+    }
 }
