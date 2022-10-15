@@ -77,9 +77,11 @@ internal class LinearAlgebraUtilTest {
     //], n=3, m=2}
     @Test
     fun testTransposeMatrix() {
-        val m4: Matrix = Matrix(arrayOf(
-            arrayOf(1.0, 2.0, 3.0),
-            arrayOf(4.0, 5.0, 6.0))
+        val m4: Matrix = Matrix(
+            arrayOf(
+                arrayOf(1.0, 2.0, 3.0),
+                arrayOf(4.0, 5.0, 6.0)
+            )
         )
         val resultMatrix: Matrix = transposeMatrix(m4)
 
@@ -93,5 +95,20 @@ internal class LinearAlgebraUtilTest {
             ),
             resultMatrix.getElems()
         )
+    }
+
+    @Test
+    fun testInverseMatrix() {
+        val m4 = Matrix(
+            arrayOf(
+                arrayOf(5.0, -2.0, 2.0, 7.0),
+                arrayOf(1.0, 0.0, 0.0, 3.0),
+                arrayOf(-3.0, 1.0, 5.0, 0.0),
+                arrayOf(3.0, -1.0, -9.0, 4.0)
+            )
+        )
+        val resultMatrix: Matrix? = invertibleMatrix(m4)
+
+        println(resultMatrix)
     }
 }
