@@ -37,9 +37,25 @@ fun getMatrixWithRandomElementsAndDiagonalDominance(n: Int, a: Int, b: Int, diag
             matrix.setElem(
                 i,
                 j,
-                if (i == j) element * diagonalCoefficient else element
+                if (i == j) {
+                    if (element != 0.0) {
+                        element * diagonalCoefficient
+                    } else {
+                        diagonalCoefficient.toDouble()
+                    }
+                } else element
             )
         }
     }
     return matrix
+}
+
+fun getVectorWithRandomElements(n: Int, a: Int, b: Int) : Vector {
+    val max = maxOf(-a, b)
+    val min = minOf(-a, b)
+    val vector = Vector(n)
+    for (i in 0 until n) {
+        vector.setElem(i, (Random.nextInt(max - min) + min).toDouble())
+    }
+    return vector
 }

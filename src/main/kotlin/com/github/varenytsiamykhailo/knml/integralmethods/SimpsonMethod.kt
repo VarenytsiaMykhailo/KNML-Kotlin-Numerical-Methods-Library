@@ -113,6 +113,7 @@ class SimpsonMethod {
         if (formSolution) {
             solutionString += "The integral solution is the Simpson method result plus 'R': $result.\n"
             solution.solutionString = solutionString
+            solution.iterations = loopIterationsCount
         }
 
         return DoubleResultWithStatus(

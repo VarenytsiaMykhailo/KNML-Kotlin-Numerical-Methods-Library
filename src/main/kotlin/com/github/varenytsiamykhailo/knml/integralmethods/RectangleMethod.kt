@@ -116,6 +116,7 @@ class RectangleMethod {
         if (formSolution) {
             solutionString += "The integral solution is the rectangle method result plus 'R': $result.\n"
             solution.solutionString = solutionString
+            solution.iterations = loopIterationsCount
         }
 
         return DoubleResultWithStatus(
