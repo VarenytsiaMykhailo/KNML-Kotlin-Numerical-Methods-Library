@@ -20,24 +20,26 @@ internal class JacobiAndSeidelMethodsConvergenceTest {
         val resultByJacobiMethod: VectorResultWithStatus = JacobiMethod().solveSystemByJacobiMethod(
             A,
             B,
-            eps = 0.01,
+            eps = 1e-16,
             formSolution = true
         )
 
         val resultBySeidelMethod: VectorResultWithStatus = SeidelMethod().solveSystemBySeidelMethod(
             A,
             B,
-            eps = 0.01,
+            eps = 1e-16,
             formSolution = true
         )
 
-        val jacobiIterations = resultByJacobiMethod.solutionObject!!.iterations
-        val seidelIterations = resultBySeidelMethod.solutionObject!!.iterations
+        val jacobiIterations = resultByJacobiMethod.solutionObject?.iterations
+        val seidelIterations = resultBySeidelMethod.solutionObject?.iterations
 
+        println("Test1: N=3")
         println("Iterations count by Jacobi's method: " + jacobiIterations)
         println("Iterations count by Seidel's method: " + seidelIterations)
+        println()
 
-        assert(jacobiIterations > seidelIterations)
+        assert(jacobiIterations!! > seidelIterations!!)
     }
 
     @Test
@@ -48,24 +50,26 @@ internal class JacobiAndSeidelMethodsConvergenceTest {
         val resultByJacobiMethod: VectorResultWithStatus = JacobiMethod().solveSystemByJacobiMethod(
             A,
             B,
-            eps = 0.01,
+            eps = 1e-16,
             formSolution = true
         )
 
         val resultBySeidelMethod: VectorResultWithStatus = SeidelMethod().solveSystemBySeidelMethod(
             A,
             B,
-            eps = 0.01,
+            eps = 1e-16,
             formSolution = true
         )
 
         val jacobiIterations = resultByJacobiMethod.solutionObject?.iterations
         val seidelIterations = resultBySeidelMethod.solutionObject?.iterations
 
+        println("Test2: N=20, duagonalCoefficient=200")
         println("Iterations count by Jacobi's method: " + jacobiIterations)
         println("Iterations count by Seidel's method: " + seidelIterations)
+        println()
 
-        assert(jacobiIterations!! >= seidelIterations!!)
+        assert(jacobiIterations!! > seidelIterations!!)
     }
 
     @Test
@@ -76,24 +80,26 @@ internal class JacobiAndSeidelMethodsConvergenceTest {
         val resultByJacobiMethod: VectorResultWithStatus = JacobiMethod().solveSystemByJacobiMethod(
             A,
             B,
-            eps = 0.01,
+            eps = 1e-16,
             formSolution = true
         )
 
         val resultBySeidelMethod: VectorResultWithStatus = SeidelMethod().solveSystemBySeidelMethod(
             A,
             B,
-            eps = 0.01,
+            eps = 1e-16,
             formSolution = true
         )
 
         val jacobiIterations = resultByJacobiMethod.solutionObject?.iterations
         val seidelIterations = resultBySeidelMethod.solutionObject?.iterations
 
+        println("Test3: N=10, duagonalCoefficient=100")
         println("Iterations count by Jacobi's method: " + jacobiIterations)
         println("Iterations count by Seidel's method: " + seidelIterations)
+        println()
 
-        assert(jacobiIterations!! <= seidelIterations!!)
+        assert(jacobiIterations!! > seidelIterations!!)
     }
 
     @Test
@@ -104,24 +110,26 @@ internal class JacobiAndSeidelMethodsConvergenceTest {
         val resultByJacobiMethod: VectorResultWithStatus = JacobiMethod().solveSystemByJacobiMethod(
             A,
             B,
-            eps = 0.01,
+            eps = 1e-16,
             formSolution = true
         )
 
         val resultBySeidelMethod: VectorResultWithStatus = SeidelMethod().solveSystemBySeidelMethod(
             A,
             B,
-            eps = 0.01,
+            eps = 1e-16,
             formSolution = true
         )
 
         val jacobiIterations = resultByJacobiMethod.solutionObject?.iterations
         val seidelIterations = resultBySeidelMethod.solutionObject?.iterations
 
+        println("Test4: N=30, duagonalCoefficient=300")
         println("Iterations count by Jacobi's method: " + jacobiIterations)
         println("Iterations count by Seidel's method: " + seidelIterations)
+        println()
 
-        assert(jacobiIterations!! == seidelIterations!!)
+        assert(jacobiIterations!! > seidelIterations!!)
     }
 
     @Test
@@ -132,23 +140,25 @@ internal class JacobiAndSeidelMethodsConvergenceTest {
         val resultByJacobiMethod: VectorResultWithStatus = JacobiMethod().solveSystemByJacobiMethod(
             A,
             B,
-            eps = 0.01,
+            eps = 1e-16,
             formSolution = true
         )
 
         val resultBySeidelMethod: VectorResultWithStatus = SeidelMethod().solveSystemBySeidelMethod(
             A,
             B,
-            eps = 0.01,
+            eps = 1e-16,
             formSolution = true
         )
 
         val jacobiIterations = resultByJacobiMethod.solutionObject?.iterations
         val seidelIterations = resultBySeidelMethod.solutionObject?.iterations
 
+        println("Test2: N=5, duagonalCoefficient=100")
         println("Iterations count by Jacobi's method: " + jacobiIterations)
         println("Iterations count by Seidel's method: " + seidelIterations)
+        println()
 
-        assert(jacobiIterations!! < seidelIterations!!)
+        assert(jacobiIterations!! > seidelIterations!!)
     }
 }

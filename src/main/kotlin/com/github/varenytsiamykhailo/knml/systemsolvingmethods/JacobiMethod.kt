@@ -1,13 +1,12 @@
 package com.github.varenytsiamykhailo.knml.systemsolvingmethods
 
 import com.github.varenytsiamykhailo.knml.systemsolvingmethods.solutions.JacobiMethodSolution
-import com.github.varenytsiamykhailo.knml.util.Vector
-import com.github.varenytsiamykhailo.knml.util.results.VectorResultWithStatus
 import com.github.varenytsiamykhailo.knml.util.*
+import com.github.varenytsiamykhailo.knml.util.results.VectorResultWithStatus
 import kotlin.math.abs
 
 /**
- * Jacobi method implementation.
+ * Jacobi's method implementation.
  *
  * In numerical linear algebra, the Jacobi method is an iterative algorithm for determining the solutions of a strictly diagonally dominant system of linear equations.
  * Each diagonal element is solved for, and an approximate value is plugged in. The process is then iterated until it converges.

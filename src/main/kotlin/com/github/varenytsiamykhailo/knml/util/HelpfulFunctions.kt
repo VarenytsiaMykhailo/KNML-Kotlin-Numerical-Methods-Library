@@ -1,7 +1,6 @@
 package com.github.varenytsiamykhailo.knml.util
 
 import kotlin.random.Random
-import kotlin.random.nextInt
 
 fun getPretty1DDoubleArrayString(array: Array<Double>): String {
     return "elems=[" + array.joinToString(" \t") + "]"
