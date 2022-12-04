@@ -3,7 +3,6 @@ package com.github.varenytsiamykhailo.knml.systemsolvingmethods
 import com.github.varenytsiamykhailo.knml.util.Matrix
 import com.github.varenytsiamykhailo.knml.util.Vector
 import com.github.varenytsiamykhailo.knml.util.results.VectorResultWithStatus
-import com.github.varenytsiamykhailo.knml.util.matrixMultiplicateVector
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
@@ -42,7 +41,7 @@ internal class ThomasMethodTest {
         assert(result.solutionObject != null)
         assert(result.solutionObject!!.solutionString.length >= 10)
 
-        val result2: Vector = matrixMultiplicateVector(Matrix(A), result.vectorResult!!)
+        val result2: Vector = Matrix(A).multiply(result.vectorResult!!)
         assertArrayEquals(
             B,
             result2.getElems()
@@ -126,7 +125,7 @@ internal class ThomasMethodTest {
         assert(result.errorException == null)
         assert(result.solutionObject == null)
 
-        val result2: Vector = matrixMultiplicateVector(A, result.vectorResult!!)
+        val result2: Vector = A.multiply(result.vectorResult!!)
         assertArrayEquals(
             B.getElems(),
             result2.getElems()

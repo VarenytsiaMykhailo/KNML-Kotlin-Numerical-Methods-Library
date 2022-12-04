@@ -1,5 +1,8 @@
 package com.github.varenytsiamykhailo.knml.util
 
+import kotlin.math.pow
+import kotlin.math.sqrt
+
 /**
  * Vector implementation.
  *
@@ -85,6 +88,88 @@ class Vector constructor(private var n: Int) {
      * [n] is the size (dimension/index) of the vector, starting from 1.
      */
     fun getN() = this.n
+
+    fun multiply(number: Double): Vector {
+        val vec = Vector(this.getElems())
+        vec.getElems().forEach { it * number }
+        return vec
+    }
+
+    /**
+     * Vector subtract vector.
+     *
+     * This method implements vector subtraction of this vector and input vector of the [Vector] type.
+     *
+     * @param [vector] the input vector.
+     *
+     * @return the result of the subtraction of two vectors which is represented as new [Vector] output type.
+     */
+    fun sub(vector: Vector): Vector {
+        require(this.getN() == vector.getN()) { "The size of this vector does not match to size of 'vector2.n'" }
+        val n = this.getN()
+        val v = Vector(n)
+        for (i in 0 until n) {
+            v.setElem(i, this.getElem(i) - vector.getElem(i))
+        }
+        return v
+    }
+
+    /**
+     * Scalar product of two vectors.
+     *
+     * This method implements scalar product of this vector and input vector of the [Vector] type.
+     *
+     * @param [vector2] the input vector.
+     *
+     * @return the result of the scalar product of two vectors which is represented as [Double] value.
+     */
+    @Throws(java.lang.Exception::class)
+    fun scalarProduct(vector: Vector): Double {
+        require(this.getN() == vector.getN()) { "The size of this vector does not equals the size of 'v2'. The size of 'v1.n' must be equal to the size of 'v2.n'." }
+
+        var result = 0.0
+
+        for (i in 0 until this.getN()) {
+            result += this.getElem(i) * vector.getElem(i)
+        }
+
+        return result
+    }
+
+    /**
+     * Vector addition vector.
+     *
+     * This method implements vector addition of this vector and input vector of the [Vector] type.
+     *
+     * @param [vector] the input vector.
+     *
+     * @return the result of the addition of two vectors which is represented as new [Vector] output type.
+     */
+    fun add(vector: Vector): Vector {
+        require(this.getN() == vector.getN()) { "The size of this vector does not match to size of 'vector2.n'" }
+
+        val n = this.getN()
+        val v = Vector(n)
+        for (i in 0 until n) {
+            v.setElem(i, this.getElem(i) + vector.getElem(i))
+        }
+        return v
+    }
+
+    /**
+     * Vector norm.
+     *
+     * This method calculates vector norm of the [Double] type.
+     *
+     * @return the result of the calculation of norm of current vector which is represented as [Double] output type.
+     */
+    fun norm(): Double {
+        var sumOfSqrs = 0.0
+        for (i in 0 until this.getN()) {
+            sumOfSqrs += this.getElem(i).pow(2.0)
+        }
+        return sqrt(sumOfSqrs)
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

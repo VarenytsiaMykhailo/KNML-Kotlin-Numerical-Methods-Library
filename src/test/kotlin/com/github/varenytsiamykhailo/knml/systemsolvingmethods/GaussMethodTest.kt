@@ -3,7 +3,6 @@ package com.github.varenytsiamykhailo.knml.systemsolvingmethods
 import com.github.varenytsiamykhailo.knml.util.Matrix
 import com.github.varenytsiamykhailo.knml.util.Vector
 import com.github.varenytsiamykhailo.knml.util.results.VectorResultWithStatus
-import com.github.varenytsiamykhailo.knml.util.matrixMultiplicateVector
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
@@ -45,7 +44,7 @@ internal class GaussMethodTest {
         assert(result.solutionObject != null)
         assert(result.solutionObject!!.solutionString.length >= 10)
 
-        val result2: Vector = matrixMultiplicateVector(Matrix(A), result.vectorResult!!)
+        val result2: Vector = Matrix(A).multiply(result.vectorResult!!)
         assertArrayEquals(
             B,
             result2.getElems()
@@ -129,7 +128,7 @@ internal class GaussMethodTest {
         assert(result.errorException == null)
         assert(result.solutionObject == null)
 
-        val result2: Vector = matrixMultiplicateVector(A, result.vectorResult!!)
+        val result2: Vector = A.multiply(result.vectorResult!!)
         assertArrayEquals(
             B.getElems(),
             result2.getElems()
@@ -165,10 +164,31 @@ internal class GaussMethodTest {
         assert(result.errorException == null)
         assert(result.solutionObject == null)
 
-        val result2: Vector = matrixMultiplicateVector(A, result.vectorResult!!)
+        val result2: Vector = A.multiply(result.vectorResult!!)
         assertArrayEquals(
             B.getElems(),
             result2.getElems()
+        )
+    }
+
+    fun solveTask(r1: Int, r2: Int, r3: Int, r4: Int, r5: Int, r6: Int) {
+        val v1 = 0.0
+        val v2 = 0.0
+        val v3 = 0.0
+        val v4 = 0.0
+
+        val A: Array<Array<Double>> =  arrayOf(
+            arrayOf(v1 / r6 + v1 / r3, - v2 / r3, 0.0, 0.0),
+            arrayOf(v2 / 320.0, (v2 - v1) / 240.0, (v2 - v3) / 180.0, (v2 - v4) / 200.0),
+            arrayOf(v3 / 160.0, (v3 - v2) / 180.0, (v3 - v4) / 360.0, 0.0),
+            arrayOf((v4 - v2) / 200.0, (v4 - v3) / 360.0, 0.0, 0.0)
+        )
+        val B: Array<Double> = arrayOf(-0.01, 0.0, 0.0, 0.01)
+
+        val result: VectorResultWithStatus = GaussMethod().solveSystemByGaussClassicMethod(
+            A,
+            B,
+            formSolution = true
         )
     }
 
@@ -202,7 +222,7 @@ internal class GaussMethodTest {
         assert(result.solutionObject != null)
         assert(result.solutionObject!!.solutionString.length >= 10)
 
-        val result2: Vector = matrixMultiplicateVector(Matrix(A), result.vectorResult!!)
+        val result2: Vector = Matrix(A).multiply(result.vectorResult!!)
         for (i in result2.getElems().indices) {
             assert(abs(B[i] - result2.getElems()[i]) <= 0.5)
         }
@@ -237,7 +257,7 @@ internal class GaussMethodTest {
         assert(result.errorException == null)
         assert(result.solutionObject == null)
 
-        val result2: Vector = matrixMultiplicateVector(A, result.vectorResult!!)
+        val result2: Vector = A.multiply(result.vectorResult!!)
         for (i in result2.getElems().indices) {
             assert(abs(B.getElems()[i] - result2.getElems()[i]) <= 0.0001)
         }
@@ -334,7 +354,7 @@ internal class GaussMethodTest {
         )
         val X: Vector = Vector(arrayOf(1.488, -0.023, -0.674))
 
-        val resultB: Vector = matrixMultiplicateVector(A, X)
+        val resultB: Vector = A.multiply(X)
 
         val resultX: VectorResultWithStatus = GaussMethod().solveSystemByGaussClassicMethod(
             A,

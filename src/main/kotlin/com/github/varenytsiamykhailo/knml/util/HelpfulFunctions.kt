@@ -58,3 +58,32 @@ fun getVectorWithRandomElements(n: Int, a: Int, b: Int) : Vector {
     }
     return vector
 }
+
+fun eyeMatrix(n: Int): Matrix {
+    val matrix = Matrix(n, n)
+    for (i in 0 until n) {
+        for (j in 0 until n) {
+            matrix.setElem(i, j, if (i == j) 1.0 else 0.0)
+        }
+    }
+    return matrix
+}
+
+fun getSymmetricPositiveMatrixWithRandomElements(n: Int, a: Int, b: Int): Matrix {
+    val max = maxOf(-a, b)
+    val min = minOf(-a, b)
+    val matrix = Matrix(n, n)
+    for (i in 0 until n) {
+        for (j in 0 until n) {
+            if (i == j) {
+                val element = (Random.nextInt(max - min) + min).toDouble()
+                matrix.setElem(i, j, element)
+            } else if (i < j) {
+                val element = (Random.nextInt(max - min) + min).toDouble()
+                matrix.setElem(i, j, element)
+                matrix.setElem(j, i, element)
+            }
+        }
+    }
+    return matrix
+}

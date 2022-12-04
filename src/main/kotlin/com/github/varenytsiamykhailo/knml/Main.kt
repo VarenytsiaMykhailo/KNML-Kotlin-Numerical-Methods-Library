@@ -358,7 +358,7 @@ private fun test1() {
     val v1: Vector = Vector(arrayOf(1.0, 2.5, 2.0))
     val v2: Vector = Vector(arrayOf(2.0, 2.0, 2.5))
     // 2 + 5 + 5 = 12
-    val result: Double = scalarProduct(v1, v2)
+    val result: Double = v1.scalarProduct(v2)
     println(result)
 
     val m1: Matrix = Matrix(
@@ -370,7 +370,7 @@ private fun test1() {
         )
     )
     val v3: Vector = Vector(arrayOf(2.0, 2.0, 2.5))
-    val resultVector: Vector = matrixMultiplicateVector(m1, v3)
+    val resultVector: Vector = m1.multiply(v3)
     println(resultVector)
 
     val m2: Matrix = Matrix(
@@ -387,7 +387,7 @@ private fun test1() {
             arrayOf(9.0, 6.0, 5.0)
         )
     )
-    val r1: Matrix = matrixMultiplicateMatrix(m2, m3)
+    val r1: Matrix = m2.multiply(m3)
     println(r1)
 
     val m4: Matrix = Matrix(
@@ -396,7 +396,7 @@ private fun test1() {
             arrayOf(4.0, 5.0, 6.0)
         )
     )
-    val r2: Matrix = transposeMatrix(m4)
+    val r2: Matrix = m4.transpose()
     println(r2)
 
 }
