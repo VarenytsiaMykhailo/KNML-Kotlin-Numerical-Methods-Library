@@ -6,7 +6,7 @@ import kotlin.math.abs
 /**
  * Matrix implementation.
  *
- * This class implements 'matrix' (table) of the size of [n] x [m] with it's elements.
+ * This class implements 'matrix' (table) of the size of [n] x [m] with its elements.
  *
  * @property [n] is the count of rows (first dimension) of the matrix, starting from 1.
  * @property [m] is the count of columns (second dimension) of the matrix, starting from 1.
@@ -142,10 +142,12 @@ class Matrix constructor(private var n: Int, private var m: Int) { // getter met
      * @param [matrix] the input matrix.
      *
      * @return the result of the multiplication of two matrices which is represented as new [Matrix] output type.
+     *
+     * Asymptotic complexity: O(n * m)
      */
     @Throws(java.lang.Exception::class)
     fun multiply(matrix: Matrix): Matrix {
-        require(this.getM() == matrix.getN()) { "The size of 'matrix1.m' does not match to size of 'matrix2.n'" }
+        require(this.getM() == matrix.getN() || this.getN() == matrix.getM()) { "The size of 'matrix1.m' does not match to size of 'matrix2.n'" }
 
         val matrixElemsResult: Array<Array<Double>> = Array(this.getN()) { Array(matrix.getM()) { 0.0 } }
 
@@ -171,6 +173,8 @@ class Matrix constructor(private var n: Int, private var m: Int) { // getter met
      * @param [number] the input number with type Double.
      *
      * @return the result of the multiplication of matrix and number which is represented as new [Matrix] output type.
+     *
+     * Asymptotic complexity: O(n * m)
      */
     @Throws(Exception::class)
     fun multiply(number: Double): Matrix {
@@ -193,6 +197,8 @@ class Matrix constructor(private var n: Int, private var m: Int) { // getter met
      * @param [vector] the input vector.
      *
      * @return the result of the multiplication of matrix and vector which is represented as new [Vector] output type.
+     *
+     * Asymptotic complexity: O(n * m)
      */
     @Throws(Exception::class)
     fun multiply(vector: Vector): Vector {
@@ -219,6 +225,8 @@ class Matrix constructor(private var n: Int, private var m: Int) { // getter met
      * @param [matrix] the input matrix.
      *
      * @return the result of the addition of two matriсes which is represented as new [Matrix] output type.
+     *
+     * Asymptotic complexity: O(n^2)
      */
     @Throws(Exception::class)
     fun add(matrix: Matrix): Matrix {
@@ -242,6 +250,8 @@ class Matrix constructor(private var n: Int, private var m: Int) { // getter met
      * @param [matrix] the input matrix.
      *
      * @return the result of the substraction of two matriсes which is represented as new [Matrix] output type.
+     *
+     * Asymptotic complexity: O(n^2)
      */
     @Throws(Exception::class)
     fun sub(matrix: Matrix): Matrix {
@@ -263,6 +273,8 @@ class Matrix constructor(private var n: Int, private var m: Int) { // getter met
      * This method implements matrix transposition of current matrix of the [Matrix] type.
      *
      * @return the result of the transposition of matrix which is represented as new [Matrix] output type.
+     *
+     * Asymptotic complexity: O(n * m)
      */
     fun transpose(): Matrix {
         val matrixElems: Array<Array<Double>> = this.getElems()
@@ -285,6 +297,8 @@ class Matrix constructor(private var n: Int, private var m: Int) { // getter met
      * This method implements inverse of matrix of the [Matrix] type.
      *
      * @return the result of the inversion of matrix which is represented as new [Matrix] output type.
+     *
+     * Asymptotic complexity: O(n^2) * O_det
      */
     fun invertible(): Matrix? {
         val n = this.getN()
@@ -330,6 +344,8 @@ class Matrix constructor(private var n: Int, private var m: Int) { // getter met
      * @param [n] the row size of input matrix.
      *
      * @return the result of the calculation of determinant of current matrix which is represented as [Double] output type.
+     *
+     * Asymptotic complexity: O(n^3)
      */
     fun determinant(n: Int): Double {
         if (n == 1) return this.getElem(0, 0)
@@ -410,6 +426,8 @@ class Matrix constructor(private var n: Int, private var m: Int) { // getter met
      * This method calculates matrix norm of the [Double] type.
      *
      * @return the result of the calculation of norm of current matrix which is represented as [Double] output type.
+     *
+     * Asymptotic complexity: O(n * m)
      */
     fun norm(): Double {
         var max = -1.0
