@@ -3,7 +3,6 @@ package com.github.varenytsiamykhailo.knml.systemsolvingmethods
 import com.github.varenytsiamykhailo.knml.util.Matrix
 import com.github.varenytsiamykhailo.knml.util.Vector
 import com.github.varenytsiamykhailo.knml.util.results.VectorResultWithStatus
-import com.github.varenytsiamykhailo.knml.util.matrixMultiplicateVector
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
@@ -42,7 +41,7 @@ internal class JacobiMethodTest {
         assert(result.solutionObject != null)
         assert(result.solutionObject!!.solutionString.length >= 10)
 
-        val result2: Vector = matrixMultiplicateVector(Matrix(A), result.vectorResult!!)
+        val result2: Vector = Matrix(A).multiply(result.vectorResult!!)
         for (i in result2.getElems().indices) {
             assert(abs(B[i] - result2.getElems()[i]) <= 0.5)
         }
@@ -125,7 +124,7 @@ internal class JacobiMethodTest {
         assert(result.errorException == null)
         assert(result.solutionObject == null)
 
-        val result2: Vector = matrixMultiplicateVector(A, result.vectorResult!!)
+        val result2: Vector = A.multiply(result.vectorResult!!)
         for (i in result2.getElems().indices) {
             assert(abs(B.getElems()[i] - result2.getElems()[i]) <= 0.0001)
         }

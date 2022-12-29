@@ -107,6 +107,7 @@ class TrapezoidMethod {
         if (formSolution) {
             solutionString += "The integral solution is the trapezoid method result plus 'R': $result.\n"
             solution.solutionString = solutionString
+            solution.iterations = loopIterationsCount
         }
 
         return DoubleResultWithStatus(

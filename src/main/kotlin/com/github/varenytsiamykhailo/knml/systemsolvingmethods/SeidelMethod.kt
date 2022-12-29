@@ -220,6 +220,7 @@ class SeidelMethod {
             solutionString += "The norm is smaller than eps, required precision has achieved on the ${iterationsCounter} iteration.\n"
             solutionString += "The approximate solution vector is ${getPretty1DDoubleArrayString(X)}.\n"
             solution.solutionString = solutionString
+            solution.iterations = iterationsCounter
         }
 
         return VectorResultWithStatus(
@@ -227,7 +228,7 @@ class SeidelMethod {
             X,
             isSuccessful = true,
             errorException = null,
-            solutionObject = if (formSolution) solution else null
+            solutionObject = if (formSolution) solution else null,
         )
     }
 

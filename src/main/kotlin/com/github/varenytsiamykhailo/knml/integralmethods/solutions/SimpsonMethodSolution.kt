@@ -5,7 +5,7 @@ import com.github.varenytsiamykhailo.knml.util.Solution
 class SimpsonMethodSolution internal constructor() : Solution {
 
     override var solutionString: String = ""
-
+    override var iterations: Int = 0
     val simpsonMethodRichardsonLoopIterations: MutableList<SimpsonMethodRichardsonLoopIterationValues> = mutableListOf()
 
 }

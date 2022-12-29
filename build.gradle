@@ -1,8 +1,9 @@
 plugins {
-    id 'java'
+    //id 'java'
+    id 'java-library'
     id 'org.jetbrains.kotlin.jvm' version '1.5.31'
     id 'org.jetbrains.dokka' version '1.6.0'
-    id 'application'
+    //id 'application'
 }
 
 group 'com.github.varenytsiamykhailo'
@@ -12,11 +13,14 @@ repositories {
     mavenCentral()
 }
 
-mainClassName = 'com.github.varenytsiamykhailo.knml.Main'
+//mainClassName = 'com.github.varenytsiamykhailo.knml.Main'
 
 jar {
     manifest {
-        attributes 'Main-Class': mainClassName
+        //attributes 'Main-Class': mainClassName
+        attributes 'Implementation-Title': project.name
+        attributes 'Implementation-Version': project.version
+        attributes 'Implementation-Group': project.group
     }
 
 
@@ -25,7 +29,7 @@ jar {
     // This line of code recursively collects and copies all of a project's files
     // and adds them to the JAR itself. One can extend this task, to skip certain
     // files or particular types at will
-    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    //from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 
 test {
@@ -33,12 +37,23 @@ test {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    implementation 'org.junit.jupiter:junit-jupiter:5.4.2'
+    implementation platform('org.jetbrains.kotlin:kotlin-bom')
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
     implementation 'org.apache.commons:commons-math3:3.6'
+    implementation 'org.junit.jupiter:junit-jupiter:5.4.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-    compile group: 'org.jfree', name: 'jfreechart', version: '1.0.19'
+    implementation 'org.jfree:jfreechart:1.0.19'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+}
+
+compileJava {
+    sourceCompatibility = "1.8"
+    targetCompatibility = "1.8"
+}
+compileTestJava {
+    sourceCompatibility = "1.8"
+    targetCompatibility = "1.8"
 }
 
 compileKotlin {

@@ -5,6 +5,7 @@ import com.github.varenytsiamykhailo.knml.util.Solution
 class RectangleMethodSolution internal constructor() : Solution {
 
     override var solutionString: String = ""
+    override var iterations: Int = 0
 
     val rectangleMethodRichardsonLoopIterations: MutableList<RectangleMethodRichardsonLoopIterationValues> = mutableListOf()
 
