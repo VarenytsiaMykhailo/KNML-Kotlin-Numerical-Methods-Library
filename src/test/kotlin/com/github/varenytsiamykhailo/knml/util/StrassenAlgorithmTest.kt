@@ -37,7 +37,7 @@ internal class StrassenAlgorithmTest {
                 B = getMatrixWithRandomElementsAndDiagonalDominance(size, 0, 15, 1)
 
                 startTime = System.currentTimeMillis()
-                s.multithreadedMultiply(A, B).run {
+                s.multiplyAsync(A, B).run {
                     strassenWithcoroutinesArr.add((System.currentTimeMillis() - startTime))
                 }
             }

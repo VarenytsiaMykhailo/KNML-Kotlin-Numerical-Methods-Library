@@ -21,7 +21,7 @@ fun main() {
         A,
         B,
         false,
-        GaussMethod.Companion.PivotingStrategy.PartialByColumn
+        GaussMethod.PivotingStrategy.PartialByColumn
     )
     println("res: " + result)
 }

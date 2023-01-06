@@ -27,12 +27,12 @@ class GaussMethod {
 
     companion object {
         private val EPSILON: Double = 1e-10
+    }
 
-        enum class PivotingStrategy {
-            PartialByRow,
-            PartialByColumn,
-            Complete
-        }
+    enum class PivotingStrategy {
+        PartialByRow,
+        PartialByColumn,
+        Complete
     }
 
     /**
@@ -135,6 +135,7 @@ class GaussMethod {
      * @param [inputA] is the input matrix of the system.
      * @param [inputB] is the input vector of the right side of the system.
      * @param [formSolution] is the flag, that says that the method need to form a solution object with the text of a detailed solution.
+     * @param [pivoting] is the type of the desired selection of pivoting strategy.
      *
      * @return This method returns solution of the input system which is wrapped into [VectorResultWithStatus] object.
      * This object also contains solution of vector and array representation, successful flag, error-exception object if unsuccess, and solution object if needed.
@@ -149,6 +150,49 @@ class GaussMethod {
             runSolvingSystemByGaussMethodWithPivoting(
                 inputA.getElems(),
                 inputB.getElems(),
+                formSolution,
+                pivoting
+            )
+        } catch (e: Exception) {
+            VectorResultWithStatus(null, null, false, e, null)
+        }
+    }
+
+    /**
+     * Gauss method with choice of pivot element strategy implementation.
+     *
+     * In mathematics, Gaussian elimination, also known as row reduction, is an algorithm for solving systems of linear equations.
+     * It consists of a sequence of operations performed on the corresponding matrix of coefficients.
+     * This is a method of successive elimination of variables, when, with the help of elementary transformations,
+     * the system of equations is reduced to an equivalent system of a triangular type,
+     * from which all the variables of the system are found sequentially, starting from the last (by number).
+     * This method is based on forward and backward sweeps.
+     *
+     * Asymptotic complexity: O(n^3).
+     *
+     * Use [solveSystemByGaussClassicMethod] method to solve the system of linear equations.
+     * This method provides a classic implementation, without rows or columns with the maximum elements swapping.
+     *
+     * **See Also:** [https://en.wikipedia.org/wiki/Gaussian_elimination], [https://ru.wikipedia.org/wiki/Метод_Гаусса]
+     *
+     * @param [inputA] is the input matrix of the system.
+     * @param [inputB] is the input vector of the right side of the system.
+     * @param [formSolution] is the flag, that says that the method need to form a solution object with the text of a detailed solution.
+     * @param [pivoting] is the type of the desired selection of pivoting strategy.
+     *
+     * @return This method returns solution of the input system which is wrapped into [VectorResultWithStatus] object.
+     * This object also contains solution of vector and array representation, successful flag, error-exception object if unsuccess, and solution object if needed.
+     */
+    fun solveSystemByGaussMethodWithPivoting(
+        inputA: Array<Array<Double>>,
+        inputB: Array<Double>,
+        formSolution: Boolean = false,
+        pivoting: PivotingStrategy
+    ): VectorResultWithStatus {
+        return try {
+            runSolvingSystemByGaussMethodWithPivoting(
+                inputA,
+                inputB,
                 formSolution,
                 pivoting
             )
