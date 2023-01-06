@@ -1,10 +1,42 @@
 package com.github.varenytsiamykhailo.knml.util
 
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
 import kotlinx.coroutines.withContext
+import java.util.concurrent.CompletableFuture
 
-
+/**
+ * Strassen algorithm implementation.
+ *
+ * In linear algebra, the Strassen algorithm, named after Volker Strassen, is an algorithm for
+ * matrix multiplication. It is faster than the standard matrix multiplication algorithm for large
+ * matrices, with a better asymptotic complexity, although the naive algorithm is often better for
+ * smaller matrices. The Strassen algorithm is slower than the fastest known algorithms for
+ * extremely large matrices, but such galactic algorithms are not useful in practice, as they are
+ * much slower for matrices of practical size. For small matrices even faster algorithms exist.
+ *
+ * Strassen's algorithm works for any ring, such as plus/multiply, but not all semirings, such as
+ * min-plus or boolean algebra, where the naive algorithm still works, and so called combinatorial
+ * matrix multiplication.
+ *
+ * Asymptotic complexity: O(n^log_2(7)).
+ *
+ * **See Also:** [https://en.wikipedia.org/wiki/Strassen_algorithm], [https://ru.wikipedia.org/wiki/Алгоритм_Штрассена]
+ */
 class StrassenAlgorithm {
+    /**
+     * Matrix multiplication with using Strassen algorithm.
+     *
+     * This method implements matrix multiplication of current matrix and input matrix of the [Matrix] type.
+     *
+     * @param [A] the first matrix.
+     * @param [B] the second matrix.
+     *
+     * @return the result of the multiplication of two matrices which is represented as new [Matrix] output type.
+     *
+     * Asymptotic complexity: O(n^log_2(7))
+     */
     fun multiply(A: Matrix, B: Matrix): Matrix {
         if (A.getN() <= 64) {
             return A.multiply(B)
@@ -85,7 +117,20 @@ class StrassenAlgorithm {
         return R
     }
 
-    suspend fun multithreadedMultiply(m1: Matrix, m2: Matrix): Matrix {
+    /**
+     * Matrix async multiplication with using Strassen algorithm.
+     * It can be called only from Kotlin code and need coroutines libraries.
+     *
+     * This method implements matrix multiplication of current matrix and input matrix of the [Matrix] type.
+     *
+     * @param [A] the first matrix.
+     * @param [B] the second matrix.
+     *
+     * @return the result of the multiplication of two matrices which is represented as new [Matrix] output type.
+     *
+     * Asymptotic complexity: ~O(n^2.55)
+     */
+    suspend fun multiplyAsync(m1: Matrix, m2: Matrix): Matrix {
         if (m1.getN() <= 64) {
             return m1.multiply(m2)
         }
@@ -123,25 +168,25 @@ class StrassenAlgorithm {
 
             // Using Formulas as described in algorithm
             // M1:=(A1+A3)×(B1+B2)
-            val M1 = withContext(Dispatchers.IO) { multiply(A11.add(A22), B11.add(B22)) }
+            val M1 = withContext(Dispatchers.IO) { multiplyAsync(A11.add(A22), B11.add(B22)) }
 
             // M2:=(A2+A4)×(B3+B4)
-            val M2 = withContext(Dispatchers.IO) { multiply(A21.add(A22), B11) }
+            val M2 = withContext(Dispatchers.IO) { multiplyAsync(A21.add(A22), B11) }
 
             // M3:=(A1−A4)×(B1+A4)
-            val M3 = withContext(Dispatchers.IO) { multiply(A11, B12.sub(B22)) }
+            val M3 = withContext(Dispatchers.IO) { multiplyAsync(A11, B12.sub(B22)) }
 
             // M4:=A1×(B2−B4)
-            val M4 = withContext(Dispatchers.IO) { multiply(A22, B21.sub(B11)) }
+            val M4 = withContext(Dispatchers.IO) { multiplyAsync(A22, B21.sub(B11)) }
 
             // M5:=(A3+A4)×(B1)
-            val M5 = withContext(Dispatchers.IO) { multiply(A11.add(A12), B22) }
+            val M5 = withContext(Dispatchers.IO) { multiplyAsync(A11.add(A12), B22) }
 
             // M6:=(A1+A2)×(B4)
-            val M6 = withContext(Dispatchers.IO) { multiply(A21.sub(A11), B11.add(B12)) }
+            val M6 = withContext(Dispatchers.IO) { multiplyAsync(A21.sub(A11), B11.add(B12)) }
 
             // M7:=A4×(B3−B1)
-            val M7 = withContext(Dispatchers.IO) { multiply(A12.sub(A22), B21.add(B22)) }
+            val M7 = withContext(Dispatchers.IO) { multiplyAsync(A12.sub(A22), B21.add(B22)) }
 
             // P:=M2+M3−M6−M7
             val C11 = M1.add(M4).sub(M5).add(M7)
@@ -166,7 +211,7 @@ class StrassenAlgorithm {
     }
 
     // Function to split parent matrix into child matrices
-    fun split(P: Matrix, C: Matrix, iB: Int, jB: Int) {
+    private fun split(P: Matrix, C: Matrix, iB: Int, jB: Int) {
         // Iterating over elements of 2D matrix using nested for loops
 
         // Outer loop for rows
@@ -187,7 +232,7 @@ class StrassenAlgorithm {
     }
 
     // Function to join child matrices into (to) parent matrix
-    fun join(C: Matrix, P: Matrix, iB: Int, jB: Int) { // Iterating over elements of 2D matrix using nested for loops
+    private fun join(C: Matrix, P: Matrix, iB: Int, jB: Int) { // Iterating over elements of 2D matrix using nested for loops
 
         // Outer loop for rows
         var i1 = 0
@@ -205,4 +250,20 @@ class StrassenAlgorithm {
             i2++
         }
     }
+
+    /**
+     * Matrix async multiplication with using Strassen algorithm.
+     * It can be called from Java code.
+     *
+     * This method implements matrix multiplication of current matrix and input matrix of the [Matrix] type.
+     *
+     * @param [A] the first matrix.
+     * @param [B] the second matrix.
+     *
+     * @return the result of the multiplication of two matrices which is represented as new [Matrix] output type.
+     *
+     * Asymptotic complexity: ~O(n^2.55)
+     */
+    fun multiplyAsyncFuture(A: Matrix, B: Matrix): CompletableFuture<Matrix> =
+        GlobalScope.future { multiplyAsync(A, B) }
 }

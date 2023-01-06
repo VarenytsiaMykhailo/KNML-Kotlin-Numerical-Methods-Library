@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions.assertArrayEquals
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import kotlin.math.roundToInt
 
 internal class MatrixTest {
 
@@ -67,6 +66,13 @@ internal class MatrixTest {
 
     @Test
     fun testAdd() {
+        for (i in 0 until 1000) {
+            val m1 = getMatrixWithRandomElementsAndDiagonalDominance(i, 0, 15, 1)
+            val m2 = getMatrixWithRandomElementsAndDiagonalDominance(i, 0, 15, 1)
+
+            m1.add(m2)
+        }
+
         val m1 = Matrix(
             arrayOf(
                 arrayOf(2.0, -3.0, 1.0),
@@ -451,31 +457,32 @@ internal class MatrixTest {
     }
 
     @Test
-    fun testLUDecomposition() {
-        val matrix = getMatrixWithRandomElementsAndDiagonalDominance(10, 0, 10, 1)
-        /*val matrix = Matrix(
+    fun testDeterminantMatrix() {
+        val matrix = Matrix(
             arrayOf(
-                arrayOf(1.0, 2.0, 1.0),
-                arrayOf(2.0, 1.0, 1.0),
-                arrayOf(1.0, -1.0, 2.0),
+                arrayOf(1.0, -2.0, 3.0),
+                arrayOf(4.0, 0.0, 6.0),
+                arrayOf(-7.0, 8.0, 9.0)
             )
-        )*/
-        println("Matrix: $matrix")
+        )
 
-        val result = matrix.getLUDecomposition()
+        val result = matrix.determinant(matrix.getN())
+        assertEquals(204.0, result)
+    }
 
-        val mulMatrix = result.first.multiply(result.second)
+    @Test
+    fun testDeterminantMatrixWithGauss() {
+        val matrix2 = Matrix(
+            arrayOf(
+                arrayOf(15.0, 14.0, 12.0),
+                arrayOf(6.0, 7.0, 1.0),
+                arrayOf(54.0, 5.0, 7.0)
+            )
+        )
 
-        println("\nLower matrix: " + result.first)
-        println("\nUpper matrix: " + result.second)
+        println(matrix2.getUpperTriangularMatrix())
 
-        val roundMatrix = mulMatrix.getElems()
-        roundMatrix.forEach {
-            it.forEach { num -> num.roundToInt() }
-        }
-        println("\nMultiplication of lower and upper matrix: ${Matrix(roundMatrix)}")
-
-        val determinant = matrix.determinant(result.first, result.second)
-        println("Determinant from LU decomposition: " + determinant)
+        val det = matrix2.determinantWithGauss()
+        assertEquals(-3348, det.toInt())
     }
 }

@@ -13,6 +13,10 @@ import org.jfree.data.xy.XYSeries;
 
 import com.github.varenytsiamykhailo.knml.util.Profiler.Timeable;
 
+import java.util.concurrent.Future;
+
+import kotlin.Pair;
+
 public class ProfileMethods {
     /**
      * @param args
@@ -20,7 +24,7 @@ public class ProfileMethods {
     public static void main(String[] args) {
         //profileJacobiMethod();
         //profileThomasMethod();
-        profileGaussMethod();
+        //profileGaussMethod();
         //profileSeidelMethod();
         //profileRectangleMethod();
         //profileTrapezoidMethod();
@@ -28,6 +32,33 @@ public class ProfileMethods {
         //profileArrayListAddBeginning();
         //profileLinkedListAddBeginning();
         //profileLinkedListAddEnd();
+
+        //profileMatrixAdd();
+        //profileMatrixMultiplyNumber();
+        //profileMatrixMultiplyVector();
+        //profileMatrixMultiplyMatrix();
+
+        //profileVectorAdd();
+        //profileMatrixNorm();
+        //profileVectorNorm();
+        //profileVectorMultiplyNumber();
+        //profileVectorMultiplyVector();
+        //profileMatrixTranspose();
+
+        //profileMatrixDeterminantWithGauss();
+        //profileMatrixDeterminant();
+        //profileMatrixAdjoint();
+        //profileMatrixInvertible();
+
+        //profileGaussMethodWithPivotingByColumn();
+        //profileGaussMethodWithPivotingByRow();
+        //profileGaussMethodWithPivotingComplete();
+
+        //profileLUDecomposition();
+        profileQRDecomposition();
+
+        //profileMatrixMultiplyWithStrassen();
+        //profileMatrixMultiplyWithStrassenMultithreading();
     }
 
     public static void profileJacobiMethod() {
@@ -55,13 +86,13 @@ public class ProfileMethods {
                         }
                     }
                 }
-                String formedMatrixString = "";
-                for (int i = 0; i < matrix.length; i++) {
-                    formedMatrixString += "\n";
+                StringBuilder formedMatrixString = new StringBuilder();
+                for (Double[] doubles : matrix) {
+                    formedMatrixString.append("\n");
                     for (int j = 0; j < matrix.length; j++) {
-                        formedMatrixString += matrix[i][j] + "\t";
+                        formedMatrixString.append(doubles[j]).append("\t");
                     }
-                    formedMatrixString += "\n";
+                    formedMatrixString.append("\n");
                 }
                 System.out.println("formed matrix = " + formedMatrixString);
 
@@ -76,8 +107,8 @@ public class ProfileMethods {
                     }
                 }
                 String formedVectorString = "\n";
-                for (int i = 0; i < vector.length; i++) {
-                    formedVectorString += vector[i] + "\t";
+                for (Double aDouble : vector) {
+                    formedVectorString += aDouble + "\t";
                 }
                 formedVectorString += "\n";
                 System.out.println("formed vector = " + formedVectorString);
@@ -122,13 +153,13 @@ public class ProfileMethods {
                         }
                     }
                 }
-                String formedMatrixString = "";
-                for (int i = 0; i < matrix.length; i++) {
-                    formedMatrixString += "\n";
+                StringBuilder formedMatrixString = new StringBuilder();
+                for (Double[] doubles : matrix) {
+                    formedMatrixString.append("\n");
                     for (int j = 0; j < matrix.length; j++) {
-                        formedMatrixString += matrix[i][j] + "\t";
+                        formedMatrixString.append(doubles[j]).append("\t");
                     }
-                    formedMatrixString += "\n";
+                    formedMatrixString.append("\n");
                 }
                 System.out.println("formed matrix = " + formedMatrixString);
 
@@ -142,11 +173,11 @@ public class ProfileMethods {
                         vector[i] = i * 100. - i + 1;
                     }
                 }
-                String formedVectorString = "\n";
-                for (int i = 0; i < vector.length; i++) {
-                    formedVectorString += vector[i] + "\t";
+                StringBuilder formedVectorString = new StringBuilder("\n");
+                for (Double aDouble : vector) {
+                    formedVectorString.append(aDouble).append("\t");
                 }
-                formedVectorString += "\n";
+                formedVectorString.append("\n");
                 System.out.println("formed vector = " + formedVectorString);
 
                 VectorResultWithStatus vectorResultWithStatus = seidelMethod.solveSystemBySeidelMethod(matrix, vector, null, 0.001, false);
@@ -167,13 +198,13 @@ public class ProfileMethods {
     public static void profileGaussMethod() {
         Timeable timeable = new Timeable() {
             GaussMethod gaussMethod;
+            Double[][] matrix;
+            Double[] vector;
 
             public void setup(int n) {
                 gaussMethod = new GaussMethod();
-            }
 
-            public void timeMe(int n) {
-                Double[][] matrix = new Double[n][n];
+                matrix = new Double[n][n];
                 for (int i = 0; i < n; i++) {
                     for (int j = 0; j < n; j++) {
                         if (i == j) {
@@ -189,17 +220,17 @@ public class ProfileMethods {
                         }
                     }
                 }
-                String formedMatrixString = "";
-                for (int i = 0; i < matrix.length; i++) {
-                    formedMatrixString += "\n";
+                StringBuilder formedMatrixString = new StringBuilder();
+                for (Double[] doubles : matrix) {
+                    formedMatrixString.append("\n");
                     for (int j = 0; j < matrix.length; j++) {
-                        formedMatrixString += matrix[i][j] + "\t";
+                        formedMatrixString.append(doubles[j]).append("\t");
                     }
-                    formedMatrixString += "\n";
+                    formedMatrixString.append("\n");
                 }
                 System.out.println("formed matrix = " + formedMatrixString);
 
-                Double[] vector = new Double[n];
+                vector = new Double[n];
                 for (int i = 0; i < vector.length; i++) {
                     if (i % 2 == 0) {
                         vector[i] = i * 100. + 1;
@@ -209,14 +240,17 @@ public class ProfileMethods {
                         vector[i] = i * 100. - i + 1;
                     }
                 }
-                String formedVectorString = "\n";
-                for (int i = 0; i < vector.length; i++) {
-                    formedVectorString += vector[i] + "\t";
+                StringBuilder formedVectorString = new StringBuilder("\n");
+                for (Double aDouble : vector) {
+                    formedVectorString.append(aDouble).append("\t");
                 }
-                formedVectorString += "\n";
+                formedVectorString.append("\n");
                 System.out.println("formed vector = " + formedVectorString);
+            }
 
-                VectorResultWithStatus vectorResultWithStatus = gaussMethod.solveSystemByGaussClassicMethod(matrix, vector, false);
+            public void timeMe(int n) {
+                VectorResultWithStatus vectorResultWithStatus =
+                        gaussMethod.solveSystemByGaussClassicMethod(matrix, vector, false);
                 if (!vectorResultWithStatus.isSuccessful()) {
                     System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                     System.out.println(vectorResultWithStatus.getErrorException());
@@ -229,6 +263,216 @@ public class ProfileMethods {
         int endMillis = 300;
 
         runProfiler("Gauss method profile", timeable, startN, endMillis);
+    }
+
+    public static void profileGaussMethodWithPivotingByColumn() {
+        Timeable timeable = new Timeable() {
+            GaussMethod gaussMethod;
+            Double[][] matrix;
+            Double[] vector;
+
+            public void setup(int n) {
+                gaussMethod = new GaussMethod();
+
+                matrix = new Double[n][n];
+                for (int i = 0; i < n; i++) {
+                    for (int j = 0; j < n; j++) {
+                        if (i == j) {
+                            matrix[i][j] = (i + 1) * (j + 1) * 100.0;
+                        } else {
+                            if (j % 3 == 0) {
+                                matrix[i][j] = (double) (i * j) / 100;
+                            } else if (j % 5 == 0) {
+                                matrix[i][j] = 0 + (double) i / 100;
+                            } else {
+                                matrix[i][j] = -(double) (i * j) / 100;
+                            }
+                        }
+                    }
+                }
+                StringBuilder formedMatrixString = new StringBuilder();
+                for (Double[] doubles : matrix) {
+                    formedMatrixString.append("\n");
+                    for (int j = 0; j < matrix.length; j++) {
+                        formedMatrixString.append(doubles[j]).append("\t");
+                    }
+                    formedMatrixString.append("\n");
+                }
+                System.out.println("formed matrix = " + formedMatrixString);
+
+                vector = new Double[n];
+                for (int i = 0; i < vector.length; i++) {
+                    if (i % 2 == 0) {
+                        vector[i] = i * 100. + 1;
+                    } else if (i % 3 == 0) {
+                        vector[i] = i * 100. + i + 1;
+                    } else {
+                        vector[i] = i * 100. - i + 1;
+                    }
+                }
+                StringBuilder formedVectorString = new StringBuilder("\n");
+                for (Double aDouble : vector) {
+                    formedVectorString.append(aDouble).append("\t");
+                }
+                formedVectorString.append("\n");
+                System.out.println("formed vector = " + formedVectorString);
+            }
+
+            public void timeMe(int n) {
+                VectorResultWithStatus vectorResultWithStatus =
+                        gaussMethod.solveSystemByGaussMethodWithPivoting(matrix, vector, false, GaussMethod.PivotingStrategy.PartialByColumn);
+                if (!vectorResultWithStatus.isSuccessful()) {
+                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.out.println(vectorResultWithStatus.getErrorException());
+                } else {
+                    System.out.println(vectorResultWithStatus.getVectorResult());
+                }
+            }
+        };
+        int startN = 8;
+        int endMillis = 300;
+
+        runProfiler("Gauss method pivoting by column profile", timeable, startN, endMillis);
+    }
+
+    public static void profileGaussMethodWithPivotingByRow() {
+        Timeable timeable = new Timeable() {
+            GaussMethod gaussMethod;
+            Double[][] matrix;
+            Double[] vector;
+
+            public void setup(int n) {
+                gaussMethod = new GaussMethod();
+
+                matrix = new Double[n][n];
+                for (int i = 0; i < n; i++) {
+                    for (int j = 0; j < n; j++) {
+                        if (i == j) {
+                            matrix[i][j] = (i + 1) * (j + 1) * 100.0;
+                        } else {
+                            if (j % 3 == 0) {
+                                matrix[i][j] = (double) (i * j) / 100;
+                            } else if (j % 5 == 0) {
+                                matrix[i][j] = 0 + (double) i / 100;
+                            } else {
+                                matrix[i][j] = -(double) (i * j) / 100;
+                            }
+                        }
+                    }
+                }
+                StringBuilder formedMatrixString = new StringBuilder();
+                for (Double[] doubles : matrix) {
+                    formedMatrixString.append("\n");
+                    for (int j = 0; j < matrix.length; j++) {
+                        formedMatrixString.append(doubles[j]).append("\t");
+                    }
+                    formedMatrixString.append("\n");
+                }
+                System.out.println("formed matrix = " + formedMatrixString);
+
+                vector = new Double[n];
+                for (int i = 0; i < vector.length; i++) {
+                    if (i % 2 == 0) {
+                        vector[i] = i * 100. + 1;
+                    } else if (i % 3 == 0) {
+                        vector[i] = i * 100. + i + 1;
+                    } else {
+                        vector[i] = i * 100. - i + 1;
+                    }
+                }
+                StringBuilder formedVectorString = new StringBuilder("\n");
+                for (Double aDouble : vector) {
+                    formedVectorString.append(aDouble).append("\t");
+                }
+                formedVectorString.append("\n");
+                System.out.println("formed vector = " + formedVectorString);
+            }
+
+            public void timeMe(int n) {
+                VectorResultWithStatus vectorResultWithStatus =
+                        gaussMethod.solveSystemByGaussMethodWithPivoting(matrix, vector, false, GaussMethod.PivotingStrategy.PartialByRow);
+                if (!vectorResultWithStatus.isSuccessful()) {
+                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.out.println(vectorResultWithStatus.getErrorException());
+                } else {
+                    System.out.println(vectorResultWithStatus.getVectorResult());
+                }
+            }
+        };
+        int startN = 8;
+        int endMillis = 300;
+
+        runProfiler("Gauss method pivoting by row profile", timeable, startN, endMillis);
+    }
+
+    public static void profileGaussMethodWithPivotingComplete() {
+        Timeable timeable = new Timeable() {
+            GaussMethod gaussMethod;
+            Double[][] matrix;
+            Double[] vector;
+
+            public void setup(int n) {
+                gaussMethod = new GaussMethod();
+
+                matrix = new Double[n][n];
+                for (int i = 0; i < n; i++) {
+                    for (int j = 0; j < n; j++) {
+                        if (i == j) {
+                            matrix[i][j] = (i + 1) * (j + 1) * 100.0;
+                        } else {
+                            if (j % 3 == 0) {
+                                matrix[i][j] = (double) (i * j) / 100;
+                            } else if (j % 5 == 0) {
+                                matrix[i][j] = 0 + (double) i / 100;
+                            } else {
+                                matrix[i][j] = -(double) (i * j) / 100;
+                            }
+                        }
+                    }
+                }
+                StringBuilder formedMatrixString = new StringBuilder();
+                for (Double[] doubles : matrix) {
+                    formedMatrixString.append("\n");
+                    for (int j = 0; j < matrix.length; j++) {
+                        formedMatrixString.append(doubles[j]).append("\t");
+                    }
+                    formedMatrixString.append("\n");
+                }
+                System.out.println("formed matrix = " + formedMatrixString);
+
+                vector = new Double[n];
+                for (int i = 0; i < vector.length; i++) {
+                    if (i % 2 == 0) {
+                        vector[i] = i * 100. + 1;
+                    } else if (i % 3 == 0) {
+                        vector[i] = i * 100. + i + 1;
+                    } else {
+                        vector[i] = i * 100. - i + 1;
+                    }
+                }
+                StringBuilder formedVectorString = new StringBuilder("\n");
+                for (Double aDouble : vector) {
+                    formedVectorString.append(aDouble).append("\t");
+                }
+                formedVectorString.append("\n");
+                System.out.println("formed vector = " + formedVectorString);
+            }
+
+            public void timeMe(int n) {
+                VectorResultWithStatus vectorResultWithStatus =
+                        gaussMethod.solveSystemByGaussMethodWithPivoting(matrix, vector, false, GaussMethod.PivotingStrategy.Complete);
+                if (!vectorResultWithStatus.isSuccessful()) {
+                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.out.println(vectorResultWithStatus.getErrorException());
+                } else {
+                    System.out.println(vectorResultWithStatus.getVectorResult());
+                }
+            }
+        };
+        int startN = 8;
+        int endMillis = 300;
+
+        runProfiler("Gauss method complete pivoting profile", timeable, startN, endMillis);
     }
 
     public static void profileThomasMethod() {
@@ -411,6 +655,561 @@ public class ProfileMethods {
         runProfiler("Simpson method profile", timeable, startN, endMillis);
     }
 
+    public static void profileMatrixAdd() {
+        Timeable timeable = new Timeable() {
+
+            Double intervalStart = 0.0;
+            Double intervalEnd;
+
+            Matrix m1;
+            Matrix m2;
+
+            public void setup(int n) {
+                m1 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 15, 1);
+                m2 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 15, 2);
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                try {
+                    Matrix result = m1.add(m2);
+                    System.out.println(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Add matrix method profile", timeable, startN, endMillis);
+    }
+
+    public static void profileMatrixMultiplyNumber() {
+        Timeable timeable = new Timeable() {
+
+            Double intervalStart = 0.0;
+            Double intervalEnd;
+
+            Matrix m1;
+
+            public void setup(int n) {
+                m1 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 15, 1);
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                try {
+                    Matrix result = m1.multiply(n);
+                    System.out.println(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Add matrix multiply number profile", timeable, startN, endMillis);
+    }
+
+    public static void profileMatrixMultiplyVector() {
+        Timeable timeable = new Timeable() {
+
+            Double intervalStart = 0.0;
+            Double intervalEnd;
+
+            Matrix m1;
+            Vector v1;
+
+            public void setup(int n) {
+                m1 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 15, 1);
+                v1 = HelpfulFunctionsKt.getVectorWithRandomElements(n, 0, 15);
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                try {
+                    Vector result = m1.multiply(v1);
+                    System.out.println(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Add matrix multiply vector profile", timeable, startN, endMillis);
+    }
+
+    public static void profileMatrixMultiplyMatrix() {
+        Timeable timeable = new Timeable() {
+
+            Double intervalStart = 0.0;
+            Double intervalEnd;
+
+            Matrix m1;
+            Matrix m2;
+
+            public void setup(int n) {
+                m1 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 15, 1);
+                m2 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 15, 1);
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                try {
+                    Matrix result = m1.multiply(m2);
+                    System.out.println(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Add matrix multiply matrix profile", timeable, startN, endMillis);
+    }
+
+    public static void profileVectorAdd() {
+        Timeable timeable = new Timeable() {
+
+            Double intervalEnd;
+
+            Vector m1;
+            Vector m2;
+
+            public void setup(int n) {
+                m1 = HelpfulFunctionsKt.getVectorWithRandomElements(n, 0, 15);
+                m2 = HelpfulFunctionsKt.getVectorWithRandomElements(n, 0, 15);
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                try {
+                    Vector result = m1.add(m2);
+                    System.out.println(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Add vector method profile", timeable, startN, endMillis);
+    }
+
+    public static void profileVectorMultiplyNumber() {
+        Timeable timeable = new Timeable() {
+
+            Double intervalEnd;
+
+            Vector m1;
+            double number;
+
+            public void setup(int n) {
+                m1 = HelpfulFunctionsKt.getVectorWithRandomElements(n, 0, 15);
+                number = n;
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                try {
+                    Vector result = m1.multiply(number);
+                    System.out.println(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Vector multiply number method profile", timeable, startN, endMillis);
+    }
+
+    public static void profileVectorMultiplyVector() {
+        Timeable timeable = new Timeable() {
+
+            Double intervalEnd;
+
+            Vector m1;
+            Vector m2;
+
+            public void setup(int n) {
+                m1 = HelpfulFunctionsKt.getVectorWithRandomElements(n, 0, 15);
+                m2 = HelpfulFunctionsKt.getVectorWithRandomElements(n, 0, 15);
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                try {
+                    Vector result = m1.multiply(m2);
+                    System.out.println(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Vector multiply vector method profile", timeable, startN, endMillis);
+    }
+
+    public static void profileVectorNorm() {
+        Timeable timeable = new Timeable() {
+
+            Double intervalEnd;
+
+            Vector v1;
+
+            public void setup(int n) {
+                v1 = HelpfulFunctionsKt.getVectorWithRandomElements(n, 0, 15);
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                System.out.println(v1.norm());
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Vector norm method profile", timeable, startN, endMillis);
+    }
+
+    public static void profileMatrixNorm() {
+        Timeable timeable = new Timeable() {
+
+            Double intervalEnd;
+
+            Matrix m1;
+
+            public void setup(int n) {
+                m1 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 15, 1);
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                double result = m1.norm();
+                System.out.println(result);
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Matrix norm method profile", timeable, startN, endMillis);
+    }
+
+    public static void profileMatrixTranspose() {
+        Timeable timeable = new Timeable() {
+
+            Double intervalEnd;
+
+            Matrix m1;
+
+            public void setup(int n) {
+                m1 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 15, 1);
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                try {
+                    Matrix result = m1.transpose();
+                    System.out.println(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Matrix transpose method profile", timeable, startN, endMillis);
+    }
+
+    public static void profileMatrixAdjoint() {
+        Timeable timeable = new Timeable() {
+
+            Double intervalEnd;
+
+            Matrix m1;
+
+            public void setup(int n) {
+                m1 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 15, 1);
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                try {
+                    Matrix result = m1.adjoint();
+                    System.out.println(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Matrix adjoint method profile", timeable, startN, endMillis);
+    }
+
+    public static void profileMatrixDeterminant() {
+        Timeable timeable = new Timeable() {
+
+            Double intervalEnd;
+
+            Matrix m1;
+
+            public void setup(int n) {
+                m1 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 15, 1);
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                try {
+                    double result = m1.determinant(n);
+                    System.out.println(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Matrix determinant method profile", timeable, startN, endMillis);
+    }
+
+    public static void profileMatrixDeterminantWithGauss() {
+        Timeable timeable = new Timeable() {
+
+            Double intervalStart = 0.0;
+            Double intervalEnd;
+
+            Matrix m1;
+
+            public void setup(int n) {
+                m1 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 15, 1);
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                try {
+                    double result = m1.determinantWithGauss();
+                    System.out.println(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Matrix determinant method with Gauss profile", timeable, startN, endMillis);
+    }
+
+    public static void profileMatrixMultiplyWithStrassen() {
+        Timeable timeable = new Timeable() {
+
+            Double intervalEnd;
+
+            StrassenAlgorithm strassenAlgorithm;
+            Matrix m1;
+            Matrix m2;
+
+            public void setup(int n) {
+                strassenAlgorithm = new StrassenAlgorithm();
+                m1 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 10, 1);
+                m2 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 10, 1);
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                try {
+                    Matrix result = strassenAlgorithm.multiply(m1, m2);
+                    System.out.println(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Matrix multiply with Strassen Algorithm profile", timeable, startN, endMillis);
+    }
+
+    public static void profileMatrixMultiplyWithStrassenMultithreading() {
+        Timeable timeable = new Timeable() {
+
+            Double intervalEnd;
+
+            StrassenAlgorithm strassenAlgorithm;
+            Matrix m1;
+            Matrix m2;
+
+            public void setup(int n) {
+                strassenAlgorithm = new StrassenAlgorithm();
+                m1 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 10, 1);
+                m2 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 10, 1);
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                try {
+                    Matrix result = strassenAlgorithm.multiplyAsyncFuture(m1, m2).get();
+                    System.out.println(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Matrix multithreading multiply with Strassen Algorithm profile", timeable, startN, endMillis);
+    }
+
+    public static void profileMatrixInvertible() {
+        Timeable timeable = new Timeable() {
+
+            Double intervalEnd;
+
+            Matrix m1;
+
+            public void setup(int n) {
+                m1 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 15, 1);
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                try {
+                    Matrix result = m1.invertible();
+                    System.out.println(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Matrix invertible method profile", timeable, startN, endMillis);
+    }
+
+    public static void profileLUDecomposition() {
+        Timeable timeable = new Timeable() {
+
+            Double intervalEnd;
+
+            Matrix m1;
+
+            public void setup(int n) {
+                m1 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 15, 1);
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                try {
+                    LUDecomposition result = new LUDecomposition(m1);
+                    System.out.println(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Matrix LU decomposition profile", timeable, startN, endMillis);
+    }
+
+    public static void profileQRDecomposition() {
+        Timeable timeable = new Timeable() {
+
+            Double intervalEnd;
+
+            Matrix m1;
+
+            public void setup(int n) {
+                m1 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 10, 1);
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                try {
+                    QRDecomposition result = new QRDecomposition(m1);
+                    System.out.println(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Matrix LU decomposition profile", timeable, startN, endMillis);
+    }
 
 /*
     public static void profileArrayListAddEnd() {

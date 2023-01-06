@@ -1,6 +1,5 @@
 package com.github.varenytsiamykhailo.knml.util
 
-import kotlin.math.pow
 import kotlin.math.sqrt
 
 /**
@@ -205,8 +204,9 @@ class Vector constructor(private var n: Int) {
      */
     fun norm(): Double {
         var sumOfSqrs = 0.0
+        val elements = this.getElems().toDoubleArray()
         for (i in 0 until this.getN()) {
-            sumOfSqrs += this.getElem(i).pow(2.0)
+            sumOfSqrs += elements[i] * elements[i]
         }
         return sqrt(sumOfSqrs)
     }

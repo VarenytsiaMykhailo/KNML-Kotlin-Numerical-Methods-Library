@@ -3,9 +3,8 @@ package com.github.varenytsiamykhailo.knml.systemsolvingmethods
 import com.github.varenytsiamykhailo.knml.util.Matrix
 import com.github.varenytsiamykhailo.knml.util.Vector
 import com.github.varenytsiamykhailo.knml.util.results.VectorResultWithStatus
+import org.junit.jupiter.api.Assertions.assertArrayEquals
 import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
@@ -382,7 +381,7 @@ internal class GaussMethodTest {
             A,
             B,
             true,
-            GaussMethod.Companion.PivotingStrategy.PartialByRow
+            GaussMethod.PivotingStrategy.PartialByRow
         )
         assert(resultWithPivotingByRow.arrayResult != null)
         assert(resultWithPivotingByRow.arrayResult!!.size == 3)
@@ -401,7 +400,7 @@ internal class GaussMethodTest {
             A,
             B,
             true,
-            GaussMethod.Companion.PivotingStrategy.PartialByColumn
+            GaussMethod.PivotingStrategy.PartialByColumn
         )
         assert(resultWithPivotingByRow.arrayResult.contentEquals(resultWithPivotingByColumn.arrayResult))
 
@@ -409,7 +408,7 @@ internal class GaussMethodTest {
             A,
             B,
             true,
-            GaussMethod.Companion.PivotingStrategy.Complete
+            GaussMethod.PivotingStrategy.Complete
         )
         assert(resultWithPivotingByRow.arrayResult.contentEquals(resultWithCompletePivoting.arrayResult))
     }

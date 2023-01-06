@@ -1,5 +1,6 @@
 package com.github.varenytsiamykhailo.knml.util
 
+import java.lang.Integer.max
 import kotlin.math.abs
 
 
@@ -19,9 +20,13 @@ import kotlin.math.abs
  *
  * @see Vector
  */
-class Matrix constructor(private var n: Int, private var m: Int) { // getter methods for the 'n', 'm' fields defined below
+class Matrix constructor(
+    private var n: Int,
+    private var m: Int
+) { // getter methods for the 'n', 'm' fields defined below
 
-    private var elems: Array<Array<Double>> = emptyArray() // getter and setter methods for the 'elems' field defined below
+    private var elems: Array<Array<Double>> =
+        emptyArray() // getter and setter methods for the 'elems' field defined below
 
     init {
         this.elems = Array(n) { Array(m) { 0.0 } }
@@ -149,7 +154,8 @@ class Matrix constructor(private var n: Int, private var m: Int) { // getter met
     fun multiply(matrix: Matrix): Matrix {
         require(this.getM() == matrix.getN() || this.getN() == matrix.getM()) { "The size of 'matrix1.m' does not match to size of 'matrix2.n'" }
 
-        val matrixElemsResult: Array<Array<Double>> = Array(this.getN()) { Array(matrix.getM()) { 0.0 } }
+        val matrixElemsResult: Array<Array<Double>> =
+            Array(this.getN()) { Array(matrix.getM()) { 0.0 } }
 
         // index 'i' matches to this matrix row and result matrix row
         for (i in 0 until this.getN()) {
@@ -226,7 +232,7 @@ class Matrix constructor(private var n: Int, private var m: Int) { // getter met
      *
      * @return the result of the addition of two matriсes which is represented as new [Matrix] output type.
      *
-     * Asymptotic complexity: O(n^2)
+     * Asymptotic complexity: O(n * m)
      */
     @Throws(Exception::class)
     fun add(matrix: Matrix): Matrix {
@@ -251,7 +257,7 @@ class Matrix constructor(private var n: Int, private var m: Int) { // getter met
      *
      * @return the result of the substraction of two matriсes which is represented as new [Matrix] output type.
      *
-     * Asymptotic complexity: O(n^2)
+     * Asymptotic complexity: O(n * m)
      */
     @Throws(Exception::class)
     fun sub(matrix: Matrix): Matrix {
@@ -302,7 +308,7 @@ class Matrix constructor(private var n: Int, private var m: Int) { // getter met
      */
     fun invertible(): Matrix? {
         val n = this.getN()
-        val det = this.determinant(n)
+        val det = this.determinantWithGauss()
         if (det == 0.0) {
             println("Singular matrix, can't find its inverse")
             return null
@@ -319,7 +325,7 @@ class Matrix constructor(private var n: Int, private var m: Int) { // getter met
         return inverseMatrix
     }
 
-    fun getCofactor(mat: Matrix, temp: Matrix, p: Int, q: Int, n: Int) {
+    private fun getCofactor(mat: Matrix, temp: Matrix, p: Int, q: Int, n: Int) {
         var i = 0
         var j = 0
 
@@ -339,13 +345,13 @@ class Matrix constructor(private var n: Int, private var m: Int) { // getter met
     /**
      * Matrix determinant.
      *
-     * This method calculates matrix determinant of the [Double] type.
+     * This is a classic method that calculates matrix determinant of the [Double] type.
      *
      * @param [n] the row size of input matrix.
      *
      * @return the result of the calculation of determinant of current matrix which is represented as [Double] output type.
      *
-     * Asymptotic complexity: O(n^3)
+     * Asymptotic complexity: O(n!)
      */
     fun determinant(n: Int): Double {
         if (n == 1) return this.getElem(0, 0)
@@ -363,21 +369,55 @@ class Matrix constructor(private var n: Int, private var m: Int) { // getter met
     }
 
     /**
-     * Matrix determinant.
+     * Matrix determinant with using Gauss Method.
      *
-     * This method calculates matrix determinant of the [Double] type.
+     * This is a method that calculates matrix determinant of the [Double] type with using upper triangular matrix.
      *
-     * @param [lowerMatrix] the lower matrix of input matrix LU decomposition.
-     * @param [upperMatrix] the upper matrix of input matrix LU decomposition.
+     * @param [n] the row size of input matrix.
      *
      * @return the result of the calculation of determinant of current matrix which is represented as [Double] output type.
+     *
+     * Asymptotic complexity: O(n^3)
      */
-    fun determinant(lowerMatrix: Matrix, upperMatrix: Matrix): Double {
-        return if (lowerMatrix.checkUnitDiagonal()) {
-            upperMatrix.multiplicationDiagonalElements()
-        } else {
-            lowerMatrix.multiplicationDiagonalElements()
+    fun determinantWithGauss(): Double {
+        val upperTriangleMatrix = getUpperTriangularMatrix()
+        var res = 1.0
+        for (i in 0 until upperTriangleMatrix.n) {
+            res *= upperTriangleMatrix.elems[i][i]
         }
+        return res
+    }
+
+    /**
+     * Upper triangular matrix.
+     *
+     * This is a method that convert matrix to upper triangular matrix of the [Matrix] type with using Gauss Method.
+     *
+     * @param [n] the row size of input matrix.
+     *
+     * @return the result of the calculation of determinant of current matrix which is represented as [Double] output type.
+     *
+     * Asymptotic complexity: O(n^3)
+     */
+    fun getUpperTriangularMatrix(): Matrix {
+        // Validation of the matrix and vector sizes
+        if (this.elems.size != this.elems[0].size) {
+            throw IllegalArgumentException("The size of 'inputA' matrix must be square (the number of rows must match the number of columns).")
+        }
+
+        val matrixClone: Array<Array<Double>> = this.elems.map { it.clone() }.toTypedArray()
+        val n: Int = matrixClone.size
+
+        for (k in 0 until n) {
+            for (i in k + 1 until n) {
+                val scaler = matrixClone[i][k] / matrixClone[k][k]
+                for (j in 0 until n) {
+                    matrixClone[i][j] = matrixClone[i][j] - scaler * matrixClone[k][j]
+                }
+            }
+        }
+
+        return Matrix(matrixClone)
     }
 
     /**
@@ -414,7 +454,7 @@ class Matrix constructor(private var n: Int, private var m: Int) { // getter met
             for (j in 0 until n) {
                 getCofactor(this, temp, i, j, n)
                 sign = if ((i + j) % 2 == 0) 1 else -1
-                adj.setElem(j, i, sign * temp.determinant(n - 1))
+                adj.setElem(j, i, sign * temp.determinantWithGauss())
             }
         }
         return adj
@@ -448,45 +488,13 @@ class Matrix constructor(private var n: Int, private var m: Int) { // getter met
     }
 
     /**
-     * Matrix LU decomposition.
+     * Checks if a matrix is unitriangular.
      *
-     * This method calculates matrix LU decomposition of the [Double] type.
+     * If the entries on the main diagonal of a triangular matrix are all 1, the matrix is called unitriangular.
      *
-     * @return the result of the calculation of LU decomposition of current matrix which is represented as [Double] output type.
+     * @return the result of the checking if current matrix is unitriangular which is represented as [Boolean] output type.
      */
-    fun getLUDecomposition(): Pair<Matrix, Matrix> {
-        val n = this.getN()
-        val lower = Matrix(n, n)
-        val upper = Matrix(n, n)
-
-        for (i in 0 until n) {
-            // Upper Triangular
-            for (k in i until n) {
-                var sum = 0.0
-                for (j in 0 until i) {
-                    sum += lower.getElem(i, j) * upper.getElem(j, k)
-                }
-                upper.setElem(i, k, this.getElem(i, k) - sum)
-            }
-
-            // Lower Triangular
-            for (k in i until n) {
-                if (i == k) {
-                    lower.setElem(i, i, 1.0)
-                } else {
-                    var sum = 0.0
-                    for (j in 0 until i) {
-                        sum += lower.getElem(k, j) * upper.getElem(j, i)
-                    }
-                    lower.setElem(k, i, (this.getElem(k, i) - sum) / upper.getElem(i, i))
-                }
-            }
-        }
-
-        return Pair(lower, upper)
-    }
-
-    fun checkUnitDiagonal(): Boolean {
+    fun isUnitriangularMatrix(): Boolean {
         for (i in 0 until this.getN()) {
             for (j in 0 until this.getM()) {
                 if (i == j) {
@@ -501,13 +509,22 @@ class Matrix constructor(private var n: Int, private var m: Int) { // getter met
 
     fun multiplicationDiagonalElements(): Double {
         var res = 1.0
-        for (i in 0 until this.getN()) {
+        for (i in 0 until max(n, m)) {
+            res *= this.getElem(i, i)
+            if (res.isInfinite() || res.isNaN()) {
+                return Double.MAX_VALUE
+            }
+        }
+        /*for (i in 0 until this.getN()) {
             for (j in 0 until this.getM()) {
                 if (i == j) {
                     res *= this.getElem(i, j)
+                    if (res.isInfinite() || res.isNaN()) {
+                        return Double.MAX_VALUE
+                    }
                 }
             }
-        }
+        }*/
         return res
     }
 
