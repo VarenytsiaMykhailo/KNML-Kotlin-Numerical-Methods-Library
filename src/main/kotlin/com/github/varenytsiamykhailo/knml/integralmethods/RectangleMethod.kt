@@ -2,8 +2,8 @@ package com.github.varenytsiamykhailo.knml.integralmethods
 
 import com.github.varenytsiamykhailo.knml.integralmethods.solutions.RectangleMethodRichardsonLoopIterationValues
 import com.github.varenytsiamykhailo.knml.integralmethods.solutions.RectangleMethodSolution
-import com.github.varenytsiamykhailo.knml.util.results.DoubleResultWithStatus
 import com.github.varenytsiamykhailo.knml.util.getMachineEps
+import com.github.varenytsiamykhailo.knml.util.results.DoubleResultWithStatus
 
 /**
  * Rectangle method implementation.
@@ -83,10 +83,10 @@ class RectangleMethod {
 
         if (formSolution) solutionString += "The fully integral solution of the rectangle method.\n"
 
-        var result: Double = 0.0
+        var result: Double
         val numOfSplits: Int =
             2 // Initial num of splits. It will double in each iteration of the Richardson precision-method loop
-        var R: Double = 0.0 // Richardson Extrapolation
+        var R: Double  // Richardson Extrapolation
         val p: Int = 2 // Precision order for the rectangle method for the Richardson Extrapolation
         if (formSolution) solutionString += "Coefficient 'p' of the Richardson extrapolation formula is 2 for the rectangle method.\n"
 
