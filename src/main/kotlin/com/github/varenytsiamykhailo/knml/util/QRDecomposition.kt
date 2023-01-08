@@ -117,7 +117,7 @@ class QRDecomposition(matrix: Matrix) {
      * @exception  RuntimeException  Matrix is rank deficient.
      */
     fun solve(B: Matrix): Matrix {
-        require(!(B.getN() !== m)) { "Matrix row dimensions must agree." }
+        require(B.getN() == m) { "Matrix row dimensions must agree." }
         if (!isFullRank) {
             throw RuntimeException("Matrix is rank deficient.")
         }

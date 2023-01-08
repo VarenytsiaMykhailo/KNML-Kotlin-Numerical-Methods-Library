@@ -1,5 +1,6 @@
 package com.github.varenytsiamykhailo.knml.util
 
+import java.io.Serializable
 import kotlin.math.sqrt
 
 /**
@@ -16,7 +17,7 @@ import kotlin.math.sqrt
  *
  * @see Matrix
  */
-class Vector constructor(private var n: Int) {
+class Vector constructor(private var n: Int) : Serializable {
 
     private var elems: Array<Double> = emptyArray()
 

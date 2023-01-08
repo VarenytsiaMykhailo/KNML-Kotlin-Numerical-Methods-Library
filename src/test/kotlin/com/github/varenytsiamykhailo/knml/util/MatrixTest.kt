@@ -347,7 +347,7 @@ internal class MatrixTest {
             )
         )
 
-        assertEquals(adjointResult, expectedResult)
+        assertEquals(expectedResult, adjointResult)
     }
 
     // 'v1' scalar moultiplication to 'v2' should be equals '12.0'

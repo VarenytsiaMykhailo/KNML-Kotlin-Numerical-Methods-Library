@@ -1,5 +1,6 @@
 package com.github.varenytsiamykhailo.knml.util
 
+import java.io.Serializable
 import java.lang.Integer.max
 import kotlin.math.abs
 
@@ -7,7 +8,7 @@ import kotlin.math.abs
 /**
  * Matrix implementation.
  *
- * This class implements 'matrix' (table) of the size of [n] x [m] with its elements.
+ * This class implements 'matrix' (table) of the size ofg [n] x [m] with its elements.
  *
  * @property [n] is the count of rows (first dimension) of the matrix, starting from 1.
  * @property [m] is the count of columns (second dimension) of the matrix, starting from 1.
@@ -23,7 +24,7 @@ import kotlin.math.abs
 class Matrix constructor(
     private var n: Int,
     private var m: Int
-) { // getter methods for the 'n', 'm' fields defined below
+) : Serializable { // getter methods for the 'n', 'm' fields defined below
 
     private var elems: Array<Array<Double>> =
         emptyArray() // getter and setter methods for the 'elems' field defined below
@@ -454,7 +455,7 @@ class Matrix constructor(
             for (j in 0 until n) {
                 getCofactor(this, temp, i, j, n)
                 sign = if ((i + j) % 2 == 0) 1 else -1
-                adj.setElem(j, i, sign * temp.determinantWithGauss())
+                adj.setElem(j, i, sign * temp.determinant(n - 1))
             }
         }
         return adj
