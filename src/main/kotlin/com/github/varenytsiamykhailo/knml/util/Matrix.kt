@@ -440,7 +440,6 @@ class Matrix constructor(
      * @return the result of adjoint of matrix which is represented as new [Matrix] output type.
      */
     fun adjoint(): Matrix {
-
         if (n == 1) {
             val adj = Matrix(1, 1)
             adj.setElem(0, 0, 1.0)

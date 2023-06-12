@@ -2,7 +2,7 @@ package com.github.varenytsiamykhailo.knml.integralmethods
 
 import com.github.varenytsiamykhailo.knml.util.results.DoubleResultWithStatus
 import org.junit.jupiter.api.Test
-import kotlin.math.exp
+import java.lang.Math.exp
 
 internal class RectangleMethodTest {
 
