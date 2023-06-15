@@ -13,7 +13,12 @@ internal class AnalyzerTest {
             "Add {{1.0, 2.0}, {4.0, 5.0}} {{5.0, 6.0}, {7.0, 8.0}}"
         )
         println(result)
-        val expectedResult = Vector(arrayOf(2.0, 4.0, 2.0))
+        val expectedResult = Matrix(
+            arrayOf(
+                arrayOf(6.0, 8.0),
+                arrayOf(11.0, 13.0),
+            )
+        )
         Assertions.assertEquals(result, expectedResult)
     }
 
