@@ -55,10 +55,17 @@ public class ProfileMethods {
         //profileGaussMethodWithPivotingComplete();
 
         //profileLUDecomposition();
-//        profileQRDecomposition();
+        //profileQRDecomposition();
 
-        profileMatrixMultiplyWithStrassen();
+        //profileMatrixMultiplyWithStrassen();
         //profileMatrixMultiplyWithStrassenMultithreading();
+
+        //profileMatrixMultiplyWithVinograd();
+        //profileMatrixMultiplyWithVinogradMultithreading();
+
+        //profileMatrixMultiplyWithVinogradStrassen();
+        //profileMatrixMultiplyWithVinogradStrassenMultithreading();
+
     }
 
     public static void profileJacobiMethod() {
