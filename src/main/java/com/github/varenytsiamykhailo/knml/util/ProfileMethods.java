@@ -55,9 +55,9 @@ public class ProfileMethods {
         //profileGaussMethodWithPivotingComplete();
 
         //profileLUDecomposition();
-        profileQRDecomposition();
+//        profileQRDecomposition();
 
-        //profileMatrixMultiplyWithStrassen();
+        profileMatrixMultiplyWithStrassen();
         //profileMatrixMultiplyWithStrassenMultithreading();
     }
 
@@ -1119,6 +1119,142 @@ public class ProfileMethods {
         int endMillis = 1000;
 
         runProfiler("Matrix multithreading multiply with Strassen Algorithm profile", timeable, startN, endMillis);
+    }
+
+    public static void profileMatrixMultiplyWithVinograd() {
+        Timeable timeable = new Timeable() {
+
+            Double intervalEnd;
+
+            VinogradAlgorithm vinogradAlgorithm;
+            Matrix m1;
+            Matrix m2;
+
+            public void setup(int n) {
+                vinogradAlgorithm = new VinogradAlgorithm();
+                m1 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 10, 1);
+                m2 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 10, 1);
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                try {
+                    Matrix result = vinogradAlgorithm.multiply(m1, m2);
+                    System.out.println(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Matrix multiply with Vinograd Algorithm profile", timeable, startN, endMillis);
+    }
+
+    public static void profileMatrixMultiplyWithVinogradMultithreading() {
+        Timeable timeable = new Timeable() {
+
+            Double intervalEnd;
+
+            VinogradAlgorithm vinogradAlgorithm;
+            Matrix m1;
+            Matrix m2;
+
+            public void setup(int n) {
+                vinogradAlgorithm = new VinogradAlgorithm();
+                m1 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 10, 1);
+                m2 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 10, 1);
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                try {
+                    Matrix result = vinogradAlgorithm.multiplyAsyncFuture(m1, m2).get();
+                    System.out.println(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Matrix multithreading multiply with Vinograd Algorithm profile", timeable, startN, endMillis);
+    }
+
+    public static void profileMatrixMultiplyWithVinogradStrassen() {
+        Timeable timeable = new Timeable() {
+
+            Double intervalEnd;
+
+            VinogradStrassenAlgorithm vinogradStrassenAlgorithm;
+            Matrix m1;
+            Matrix m2;
+
+            public void setup(int n) {
+                vinogradStrassenAlgorithm = new VinogradStrassenAlgorithm();
+                m1 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 10, 1);
+                m2 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 10, 1);
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                try {
+                    Matrix result = vinogradStrassenAlgorithm.multiply(m1, m2);
+                    System.out.println(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Matrix multiply with Vinograd-Strassen Algorithm profile", timeable, startN, endMillis);
+    }
+
+    public static void profileMatrixMultiplyWithVinogradStrassenMultithreading() {
+        Timeable timeable = new Timeable() {
+
+            Double intervalEnd;
+
+            VinogradStrassenAlgorithm vinogradStrassenAlgorithm;
+            Matrix m1;
+            Matrix m2;
+
+            public void setup(int n) {
+                vinogradStrassenAlgorithm = new VinogradStrassenAlgorithm();
+                m1 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 10, 1);
+                m2 = HelpfulFunctionsKt.getMatrixWithRandomElementsAndDiagonalDominance(n, 0, 10, 1);
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                try {
+                    Matrix result = vinogradStrassenAlgorithm.multiplyAsyncFuture(m1, m2).get();
+                    System.out.println(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        int startN = 1;
+        int endMillis = 1000;
+
+        runProfiler("Matrix multithreading multiply with Vinograd-Strassen Algorithm profile", timeable, startN, endMillis);
     }
 
     public static void profileMatrixInvertible() {
