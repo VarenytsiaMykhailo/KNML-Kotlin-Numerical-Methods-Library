@@ -1,5 +1,7 @@
 package com.github.varenytsiamykhailo.knml.util;
 
+import com.github.varenytsiamykhailo.knml.bignumbers.BigNumber;
+import com.github.varenytsiamykhailo.knml.bignumbers.MultiplyMethod;
 import com.github.varenytsiamykhailo.knml.integralmethods.RectangleMethod;
 import com.github.varenytsiamykhailo.knml.integralmethods.SimpsonMethod;
 import com.github.varenytsiamykhailo.knml.integralmethods.TrapezoidMethod;
@@ -66,6 +68,9 @@ public class ProfileMethods {
         //profileMatrixMultiplyWithVinogradStrassen();
         //profileMatrixMultiplyWithVinogradStrassenMultithreading();
 
+        //profileKaratsuba();
+        //profileToomKuk();
+        //profileShtrassen();
     }
 
     public static void profileJacobiMethod() {
@@ -1262,6 +1267,108 @@ public class ProfileMethods {
         int endMillis = 1000;
 
         runProfiler("Matrix multithreading multiply with Vinograd-Strassen Algorithm profile", timeable, startN, endMillis);
+    }
+
+        public static void profileKaratsuba() {
+        Timeable timeable = new Timeable() {
+            MultiplyMethod rectangleMethod;
+            Double intervalEnd;
+
+            BigNumber m1;
+            BigNumber m2;
+
+            public void setup(int n) {
+                rectangleMethod = new MultiplyMethod();
+
+                m1 = HelpfulFunctionsKt.getBigNumber(n);
+                m2 = HelpfulFunctionsKt.getBigNumber(n);;
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                try {
+                    BigNumber result = rectangleMethod.karatsuba(m1, m2);
+                    System.out.println(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        int startN = 100;
+        int endMillis = 1000;
+
+        runProfiler("Add matrix multiply matrix profile", timeable, startN, endMillis);
+    }
+
+    public static void profileToomKuk() {
+        Timeable timeable = new Timeable() {
+            MultiplyMethod rectangleMethod;
+            Double intervalEnd;
+
+            BigNumber m1;
+            BigNumber m2;
+
+            public void setup(int n) {
+                rectangleMethod = new MultiplyMethod();
+
+                m1 = HelpfulFunctionsKt.getBigNumber(n);
+                m2 = HelpfulFunctionsKt.getBigNumber(n);;
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                try {
+                    BigNumber result = rectangleMethod.toomCook3WayMultiplication(m1, m2);
+                    System.out.println(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        int startN = 100;
+        int endMillis = 1000;
+
+        runProfiler("Add matrix multiply matrix profile", timeable, startN, endMillis);
+    }
+
+    public static void profileShtrassen() {
+        Timeable timeable = new Timeable() {
+            MultiplyMethod rectangleMethod;
+            Double intervalEnd;
+
+            BigNumber m1;
+            BigNumber m2;
+
+            public void setup(int n) {
+                rectangleMethod = new MultiplyMethod();
+
+                m1 = HelpfulFunctionsKt.getBigNumber(n);
+                m2 = HelpfulFunctionsKt.getBigNumber(n);;
+
+                intervalEnd = (double) n;
+
+                System.out.println("formed intervalEnd = " + intervalEnd);
+            }
+
+            public void timeMe(int n) {
+                try {
+                    BigNumber result = rectangleMethod.schonhageShtrassen(m1, m2);
+                    System.out.println(result.getNumber());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        int startN = 1000;
+        int endMillis = 1000;
+
+        runProfiler("Add matrix multiply matrix profile", timeable, startN, endMillis);
     }
 
     public static void profileMatrixInvertible() {
