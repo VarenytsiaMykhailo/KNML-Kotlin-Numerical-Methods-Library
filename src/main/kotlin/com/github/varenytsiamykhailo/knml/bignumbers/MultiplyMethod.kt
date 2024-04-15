@@ -265,18 +265,15 @@ class MultiplyMethod {
         val result = Matrix(n, m)
 
         for (i in 0 until n) {
-
             for (j in 0 until m) {
 
                 if (withInfinity && i == n-1) {
 
                     if (j == m-1) {
                         result.setElem(i, j,1.0)
-
                         continue
                     }
                     result.setElem(i, j,0.0)
-
                     continue
                 }
 
@@ -284,7 +281,6 @@ class MultiplyMethod {
                 result.setElem(i, j, value)
             }
         }
-
         return result
     }
 }
