@@ -1,5 +1,6 @@
 package com.github.varenytsiamykhailo.knml.util
 
+import com.github.varenytsiamykhailo.knml.bignumbers.BigNumber
 import kotlin.random.Random
 
 fun getPretty1DDoubleArrayString(array: Array<Double>): String {
@@ -57,6 +58,15 @@ fun getVectorWithRandomElements(n: Int, a: Int, b: Int) : Vector {
         vector.setElem(i, (Random.nextInt(max - min) + min).toDouble())
     }
     return vector
+}
+
+fun getBigNumber(n: Long): BigNumber {
+    var number = ""
+    for (i in  0 until n) {
+        number += Random.nextInt(0, 10)
+    }
+
+    return BigNumber(number)
 }
 
 fun eyeMatrix(n: Int): Matrix {
